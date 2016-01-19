@@ -22,6 +22,9 @@ For presentation, the team should present the story and results from their scrip
 9. You don't need to upload your script to Kaggle. It is optional.
 
 ##### Useful resources
+* ACS Information [Guide](https://www.census.gov/programs-surveys/acs/about/information-guide.html)
+* ACS [Data Dictionary](http://www2.census.gov/programs-surveys/acs/tech_docs/pums/data_dict/PUMSDataDict13.txt)
+* Kaggle [dataset description](https://www.kaggle.com/census/2013-american-community-survey)
 * R [dplyr](https://cran.rstudio.com/web/packages/dplyr/vignettes/introduction.html) package
 * R [data.table](https://cran.r-project.org/web/packages/data.table/)
 * R [testthat](https://journal.r-project.org/archive/2011-1/RJournal_2011-1_Wickham.pdf) package

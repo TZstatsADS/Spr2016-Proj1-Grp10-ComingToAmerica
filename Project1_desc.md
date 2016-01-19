@@ -24,6 +24,7 @@ For presentation, the team should present the story and results from their scrip
 ##### Useful resources
 * ACS Information [Guide](https://www.census.gov/programs-surveys/acs/about/information-guide.html)
 * ACS [Data Dictionary](http://www2.census.gov/programs-surveys/acs/tech_docs/pums/data_dict/PUMSDataDict13.txt)
+* ACS [Survey weights](https://usa.ipums.org/usa/repwt.shtml)
 * Kaggle [dataset description](https://www.kaggle.com/census/2013-american-community-survey)
 * R [dplyr](https://cran.rstudio.com/web/packages/dplyr/vignettes/introduction.html) package
 * R [data.table](https://cran.r-project.org/web/packages/data.table/)

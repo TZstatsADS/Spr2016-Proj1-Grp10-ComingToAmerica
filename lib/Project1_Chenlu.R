@@ -7,17 +7,17 @@ library(ggplot2)
 library(RColorBrewer)
 
 cols <- c("ENG", "NATIVITY", "POBP", "SEX", "YOEP","DECADE", "AGEP","WGTP")
-pusa <- fread("W4249/project1/data/ss13pusa.csv", select = cols)
-pusb <- fread("W4249/project1/data/ss13pusb.csv", select = cols)
+pusa <- fread("../data/ss13pusa.csv", select = cols)
+pusb <- fread("../data/ss13pusb.csv", select = cols)
 pus <- bind_rows(pusa, pusb)
 rm(pusa, pusb)
 gc()
 
 ##1 Ability to speak English
 # Create filter
-country <- fread("W4249/project1/data/NonEnglish.csv")
+country <- fread("../data/NonEnglish.csv")
 #country <- c(001:001:150)
-nonnative0 <- filter(pus, NATIVITY == 2 & POBP %in% country[1])
+nonnative0 <- filter(pus, NATIVITY == 2 & POBP %in% country$V1)
 
 # Count number of different English levels
 cot <- tally(group_by(nonnative0,ENG), sort = FALSE)
@@ -27,7 +27,7 @@ cot2 <- cot$n
 slices <- c(cot2[1], cot2[2], cot2[3], cot2[4]) 
 lbls <- c("Very well", "Well", "Not well", "Not at all")
 
-layout(1,height = 1)
+#layout(1,height = 1)
 cols = brewer.pal(4, "Set3")
 percentage <- round(100*slices/sum(slices), 1)
 text <- c("Very well: ", "Well: ", "Not well: ", "Not at all: ")
@@ -35,6 +35,8 @@ perlabels <- paste(text, percentage, "%", sep="")
 pie3D(slices, radius = 1.2, shade = 0.8, theta = 0.8, start = -0.1, border = "white",
       col = cols, main = "Pie Chart of Ability to Speak English", 
       labels = perlabels, labelrad = 1.3, labelcex = 1.2)
+#dev.copy(png, "../figs/Eng.png")
+#dev.off()
 
 # Create object list
 nonnativelist <- list()
@@ -88,7 +90,7 @@ print(ggplot(nonnative.sum, aes(x = DECADE, y = count)) +
   geom_bar(aes(fill = SEX), stat = "identity") + scale_fill_brewer(palette = "Set2") +
   geom_text(aes(y = pos, label = Percent)) +
   ggtitle(bquote(atop("Sex Ratio by Decade", atop(.(groupname[i+1]), "")))) + 
-            labs(x = "Decade", y = "Count"))
+            labs(x = "Decade", y = "Count") + theme_bw(base_family= 'Helvetica'))
 }
 
 ##4 Age group at immigrant decade

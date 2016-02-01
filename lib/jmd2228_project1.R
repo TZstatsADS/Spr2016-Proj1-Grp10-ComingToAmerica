@@ -4,14 +4,10 @@
  
 library(data.table)
 library(dplyr)
-#library(tidyr)
-library(ggplot2)
-library(RColorBrewer)
-library(maps)
 library(googleVis)
 
 # Gather population data
-cols <- c("NATIVITY", "ST", "POBP", "MIG", "ENG", "FER", "MAR", "MARHD", "MARHM", "MARHW", "SEX", "NOP", "AGEP")
+cols <- c("NATIVITY", "ST", "POBP", "MIG", "ENG", "FER", "MAR", "MARHD", "MARHM", "MARHW", "SEX", "NOP", "AGEP", "PWGTP")
 population <- fread("Documents/Spring 2016/DataScience/Project1/complete.csv", select = cols)
 # Group made csv categorizing countries
 eng_speaking_countries <- fread("Documents/Spring 2016/DataScience/Project1/eng_speaking.csv")
@@ -21,25 +17,25 @@ eng_speaking_countries <- fread("Documents/Spring 2016/DataScience/Project1/eng_
 # Table gathering
 
 # Contains all columns
-head(population)
+#head(population)
 
 # Contains .csv categorizing countries
-head(eng_speaking_countries)
+#head(eng_speaking_countries)
 
 # Contains .csv with only non-english speaking countries
 non_eng_native <- select(filter(eng_speaking_countries, V3 == 1), V1, V2)
-head(non_eng_native)
+#head(non_eng_native)
 
 # Sub population 1
 
 # Immigrants who have learned english since moving to the US in the last 12 months WITH CHILD
 sub_pop_1 <- filter(population, NATIVITY == 2 & MIG == 2 & POBP %in% non_eng_native$V1 & FER == 1)
-head(sub_pop_1)
+#head(sub_pop_1)
 pop_children <- na.omit(as.numeric(sub_pop_1$ENG))
 
 # Immigrants who have learned english since moving to the US in the last 12 months WITHOUT CHILD
 sub_pop_2 <- filter(population, NATIVITY == 2 & MIG == 2 & POBP %in% non_eng_native$V1 & FER == 2)
-head(sub_pop_2)
+#head(sub_pop_2)
 pop_no_children <- na.omit(as.numeric(sub_pop_2$ENG))
 
 # Sub population 2
@@ -48,8 +44,8 @@ pop_no_children <- na.omit(as.numeric(sub_pop_2$ENG))
 sub_pop_3 <- select(population, ENG, NOP, NATIVITY, AGEP)
 sub_pop_3 <- subset(sub_pop_3, NATIVITY == 1 & AGEP <= 18)
 sub_pop_3 <- select(sub_pop_3, ENG, NOP)
-head(sub_pop_3)
-View(sub_pop_3)
+#head(sub_pop_3)
+#View(sub_pop_3)
 
 childframe <- data.frame(id = as.numeric(sub_pop_3$ENG), parent = as.numeric(sub_pop_3$NOP), childsize = c(rep(1,length(sub_pop_3$ENG))), fac = as.numeric(sub_pop_3$ENG))
 childframe <- na.omit(childframe)
@@ -110,11 +106,11 @@ childframe <- rbind(c("Both Native","TOP",5, 4), childframe)
 childframe <- rbind(c("Father Foreign","TOP",5, 5), childframe)
 childframe <- rbind(c("Mother Foreign","TOP",5, 6), childframe)
 childframe <- rbind(c("Both Foreign","TOP",5, 7), childframe)
-childframe$id[36] <- "Not at all Count: 7"
 childframe <- rbind(c("Only Father, Native","TOP",5, 8), childframe)
 childframe <- rbind(c("Only Father, Foreign","TOP",5, 9), childframe)
 childframe <- rbind(c("Only Mother, Native","TOP",5, 10), childframe)
 childframe <- rbind(c("Only Mother, Foreign","TOP",5, 11), childframe)
+childframe$id[36] = "Not at all Count: 9"
 
 tree <- gvisTreeMap(childframe,  idvar="id", parentvar="parent", sizevar="childsize", colorvar="fac", options=list(minColor='#EDF8FB',midColor='#66C2A4',maxColor='#006D2C'))
 plot(tree)

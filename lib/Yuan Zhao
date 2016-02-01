@@ -14,18 +14,19 @@ library(gridExtra)
 library(maps)
 
 #read data
+#treat pus1 as whole data. pus is the nonnative speaker
 
 cols <- c("ENG", "NATIVITY", "POBP", "ANC1P", "SEX", "SCHL","COW", "AGEP", "PAOC", "ST", "ESR", "WAGP")
 pusa <- fread("../data/ss13pusa.csv", select = cols)
 pusb <- fread("../data/ss13pusb.csv", select = cols)
-pus <- bind_rows(pusa, pusb)
+pus1 <- bind_rows(pusa, pusb)
 rm(pusa, pusb)
 gc()
 
 # Create filter
 country <- fread("../data/NonEnglish.csv")
 #country <- c(001:001:150)
-nonnative <- filter(pus, NATIVITY == 2 & POBP %in% country$V1)
+pus <- filter(pus1, NATIVITY == 2 & POBP %in% country$V1)
 
 # Count number of different English levels
 cot <- tally(group_by(nonnative,ENG), sort = FALSE)

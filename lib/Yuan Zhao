@@ -22,11 +22,10 @@ pus <- bind_rows(pusa, pusb)
 rm(pusa, pusb)
 gc()
 
-##1 Ability to speak English
 # Create filter
-country1 <- c(001:001:150)
-country2 <- c(001:001:150)
-nonnative <- filter(pus, NATIVITY == 2 & POBP %in% country1 & ANC1P %in% country2)
+country <- fread("../data/NonEnglish.csv")
+#country <- c(001:001:150)
+nonnative <- filter(pus, NATIVITY == 2 & POBP %in% country$V1)
 
 # Count number of different English levels
 cot <- tally(group_by(nonnative,ENG), sort = FALSE)

@@ -104,7 +104,7 @@ levels(notnative.noteng.top.states$rENG)
 levels(notnative.noteng.top.states$rENG) <- c("Not at All","Not Well","Well","Very Well")
 
 ggplot(notnative.noteng.top.states, aes(rENG, group=top.states)) + 
-  geom_bar(aes(colour=top.states, fill=top.states), alpha=0.9) +
+  geom_bar(aes(colour=top.states, fill=top.states), position=position_dodge(), alpha=0.9) +
   xlab("Ability to Speak English") + ylab("Number of Respondents") + 
   ggtitle("English-Speaking Ability in Most Populous Immigrant States")  +
   scale_fill_brewer(palette = "Paired") + scale_colour_brewer(palette = "Paired")  + theme(panel.background = element_rect(fill = "lightyellow"))

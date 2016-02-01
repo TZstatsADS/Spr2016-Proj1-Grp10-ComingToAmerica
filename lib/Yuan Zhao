@@ -16,17 +16,16 @@ library(maps)
 #read data
 
 cols <- c("ENG", "NATIVITY", "POBP", "ANC1P", "SEX", "SCHL","COW", "AGEP", "PAOC", "ST", "ESR", "WAGP")
-pusa <- fread("C:/Users/mangmangyuzhou/Desktop/2016 Spring/data science/project 1/2013-american-community-survey/pums/ss13pusa.csv", select = cols)
-pusb <- fread("C:/Users/mangmangyuzhou/Desktop/2016 Spring/data science/project 1/2013-american-community-survey/pums/ss13pusb.csv", select = cols)
+pusa <- fread("../data/ss13pusa.csv", select = cols)
+pusb <- fread("../data/ss13pusb.csv", select = cols)
 pus <- bind_rows(pusa, pusb)
 rm(pusa, pusb)
 gc()
 
-##1 Ability to speak English
 # Create filter
-country1 <- c(001:001:150)
-country2 <- c(001:001:150)
-nonnative <- filter(pus, NATIVITY == 2 & POBP %in% country1 & ANC1P %in% country2)
+country <- fread("../data/NonEnglish.csv")
+#country <- c(001:001:150)
+nonnative <- filter(pus, NATIVITY == 2 & POBP %in% country$V1)
 
 # Count number of different English levels
 cot <- tally(group_by(nonnative,ENG), sort = FALSE)
@@ -70,7 +69,7 @@ data$center <- c(0, cumsum(data$margin)[1:length(levels(factor(am$AGEP))) -1]) +
 ggplot(data, aes(center, height)) + 
   geom_bar(stat = "identity", aes(width = margin, fill = Var2), col = "gray", alpha = 0.7) +
   labs(x = "Age", y = "Frequency", title = "Education Level of the Non Native Speaker") +
-  scale_x_continuous(breaks = seq(0, 1, 0.1), labels=c("0", "8","16", "27", "31", "33", "36", "38", "41", "43", "46", "50", "93"))
+  scale_x_continuous(breaks = seq(0, 1, 0.1), labels=c("16", "27", "31", "33", "36", "38", "41", "43", "46", "50", "93"))
 
 
 #employment
@@ -81,7 +80,7 @@ data$center <- c(0, cumsum(data$margin)[1:length(levels(factor(am$AGEP))) -1]) +
 ggplot(data, aes(center, height)) + 
   geom_bar(stat = "identity", aes(width = margin, fill = Var2), col = "gray", alpha = 0.7) +
   labs(x = "Age", y = "Frequency", title = "Employment Status of the Non Native Speaker") +
-  scale_x_continuous(breaks = seq(0, 1, 0.1), labels=c("0", "8","16", "27", "31", "33", "36", "38", "41", "43", "46", "50", "93"))
+  scale_x_continuous(breaks = seq(0, 1, 0.1), labels=c("16", "27", "31", "33", "36", "38", "41", "43", "46", "50", "93"))
 
 ##chisq test with education and employment
 chisq.test(table(am$SCHL, am$ESR))

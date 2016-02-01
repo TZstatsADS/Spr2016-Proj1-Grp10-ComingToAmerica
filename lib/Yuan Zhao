@@ -70,7 +70,7 @@ data$center <- c(0, cumsum(data$margin)[1:length(levels(factor(am$AGEP))) -1]) +
 ggplot(data, aes(center, height)) + 
   geom_bar(stat = "identity", aes(width = margin, fill = Var2), col = "gray", alpha = 0.7) +
   labs(x = "Age", y = "Frequency", title = "Education Level of the Non Native Speaker") +
-  scale_x_continuous(breaks = seq(0, 1, 0.1), labels=c("0", "8","16", "27", "31", "33", "36", "38", "41", "43", "46", "50", "93"))
+  scale_x_continuous(breaks = seq(0, 1, 0.1), labels=c("16", "27", "31", "33", "36", "38", "41", "43", "46", "50", "93"))
 
 
 #employment
@@ -81,7 +81,7 @@ data$center <- c(0, cumsum(data$margin)[1:length(levels(factor(am$AGEP))) -1]) +
 ggplot(data, aes(center, height)) + 
   geom_bar(stat = "identity", aes(width = margin, fill = Var2), col = "gray", alpha = 0.7) +
   labs(x = "Age", y = "Frequency", title = "Employment Status of the Non Native Speaker") +
-  scale_x_continuous(breaks = seq(0, 1, 0.1), labels=c("0", "8","16", "27", "31", "33", "36", "38", "41", "43", "46", "50", "93"))
+  scale_x_continuous(breaks = seq(0, 1, 0.1), labels=c("16", "27", "31", "33", "36", "38", "41", "43", "46", "50", "93"))
 
 ##chisq test with education and employment
 chisq.test(table(am$SCHL, am$ESR))

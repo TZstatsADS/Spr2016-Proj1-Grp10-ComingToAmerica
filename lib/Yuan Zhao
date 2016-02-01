@@ -90,12 +90,3 @@ ggplot(data, aes(x = Var1, y = Freq, group = Var2)) +
   labs(x = "Education", y = "Frequency", title = "Education vs Employment Status") + 
   theme(axis.text.x = element_text(angle = 30, hjust = 1))
 
-#Wage and education
-wm <- subset(am, ESR == "Employed" & WAGP > 1000)
-ggplot(na.omit(wm), aes(x = SCHL, y = log10(WAGP))) + 
-  geom_boxplot(aes(fill = SCHL), alpha = 0.5) + 
-  labs(x = "Education", y = "Wage on Log10 Scale", title = "Wage vs Education") +
-  stat_summary(fun.y=mean, aes(colour = AGEP), geom="point", size = 5) +
-  stat_summary(fun.y=mean, aes(group=AGEP, colour = AGEP), geom="line") + 
-  theme(axis.text.x = element_text(angle = 30, hjust = 1)) + 
-  guides(fill = FALSE)

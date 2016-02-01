@@ -16,8 +16,8 @@ library(maps)
 #read data
 
 cols <- c("ENG", "NATIVITY", "POBP", "ANC1P", "SEX", "SCHL","COW", "AGEP", "PAOC", "ST", "ESR", "WAGP")
-pusa <- fread("C:/Users/mangmangyuzhou/Desktop/2016 Spring/data science/project 1/2013-american-community-survey/pums/ss13pusa.csv", select = cols)
-pusb <- fread("C:/Users/mangmangyuzhou/Desktop/2016 Spring/data science/project 1/2013-american-community-survey/pums/ss13pusb.csv", select = cols)
+pusa <- fread("../data/ss13pusa.csv", select = cols)
+pusb <- fread("../data/ss13pusb.csv", select = cols)
 pus <- bind_rows(pusa, pusb)
 rm(pusa, pusb)
 gc()

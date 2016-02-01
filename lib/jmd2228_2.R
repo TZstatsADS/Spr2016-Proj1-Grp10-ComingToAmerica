@@ -4,10 +4,14 @@
  
 library(data.table)
 library(dplyr)
+#library(tidyr)
+#library(ggplot2)
+#library(RColorBrewer)
+#library(maps)
 library(googleVis)
 
 # Gather population data
-cols <- c("NATIVITY", "ST", "POBP", "MIG", "ENG", "FER", "MAR", "MARHD", "MARHM", "MARHW", "SEX", "NOP", "AGEP", "PWGTP")
+cols <- c("NATIVITY", "ST", "POBP", "MIG", "ENG", "FER", "MAR", "MARHD", "MARHM", "MARHW", "SEX", "NOP", "AGEP")
 population <- fread("Documents/Spring 2016/DataScience/Project1/complete.csv", select = cols)
 # Group made csv categorizing countries
 eng_speaking_countries <- fread("Documents/Spring 2016/DataScience/Project1/eng_speaking.csv")
@@ -106,11 +110,12 @@ childframe <- rbind(c("Both Native","TOP",5, 4), childframe)
 childframe <- rbind(c("Father Foreign","TOP",5, 5), childframe)
 childframe <- rbind(c("Mother Foreign","TOP",5, 6), childframe)
 childframe <- rbind(c("Both Foreign","TOP",5, 7), childframe)
+childframe$id[36] <- "Not at all Count: 9"
 childframe <- rbind(c("Only Father, Native","TOP",5, 8), childframe)
 childframe <- rbind(c("Only Father, Foreign","TOP",5, 9), childframe)
 childframe <- rbind(c("Only Mother, Native","TOP",5, 10), childframe)
 childframe <- rbind(c("Only Mother, Foreign","TOP",5, 11), childframe)
-childframe$id[36] = "Not at all Count: 9"
 
 tree <- gvisTreeMap(childframe,  idvar="id", parentvar="parent", sizevar="childsize", colorvar="fac", options=list(minColor='#EDF8FB',midColor='#66C2A4',maxColor='#006D2C'))
 plot(tree)
+

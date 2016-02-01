@@ -16,17 +16,16 @@ library(maps)
 #read data
 
 cols <- c("ENG", "NATIVITY", "POBP", "ANC1P", "SEX", "SCHL","COW", "AGEP", "PAOC", "ST", "ESR", "WAGP")
-pusa <- fread("C:/Users/mangmangyuzhou/Desktop/2016 Spring/data science/project 1/2013-american-community-survey/pums/ss13pusa.csv", select = cols)
-pusb <- fread("C:/Users/mangmangyuzhou/Desktop/2016 Spring/data science/project 1/2013-american-community-survey/pums/ss13pusb.csv", select = cols)
+pusa <- fread("../data/ss13pusa.csv", select = cols)
+pusb <- fread("../data/ss13pusb.csv", select = cols)
 pus <- bind_rows(pusa, pusb)
 rm(pusa, pusb)
 gc()
 
-##1 Ability to speak English
 # Create filter
-country1 <- c(001:001:150)
-country2 <- c(001:001:150)
-nonnative <- filter(pus, NATIVITY == 2 & POBP %in% country1 & ANC1P %in% country2)
+country <- fread("../data/NonEnglish.csv")
+#country <- c(001:001:150)
+nonnative <- filter(pus, NATIVITY == 2 & POBP %in% country$V1)
 
 # Count number of different English levels
 cot <- tally(group_by(nonnative,ENG), sort = FALSE)

@@ -1,0 +1,102 @@
+#title: overview of non-native immigrants
+install.packages("data.table")
+install.packages("plotrix")
+install.packages("ggplot2")
+install.packages("RColorBrewer")
+install.packages("gridExtra")
+install.packages("maps")
+library(data.table)
+library(dplyr)
+library(plotrix)
+library(ggplot2)
+library(RColorBrewer)
+library(gridExtra)
+library(maps)
+
+#read data
+
+cols <- c("ENG", "NATIVITY", "POBP", "ANC1P", "SEX", "SCHL","COW", "AGEP", "PAOC", "ST", "ESR", "WAGP")
+pusa <- fread("C:/Users/mangmangyuzhou/Desktop/2016 Spring/data science/project 1/2013-american-community-survey/pums/ss13pusa.csv", select = cols)
+pusb <- fread("C:/Users/mangmangyuzhou/Desktop/2016 Spring/data science/project 1/2013-american-community-survey/pums/ss13pusb.csv", select = cols)
+pus <- bind_rows(pusa, pusb)
+rm(pusa, pusb)
+gc()
+
+##1 Ability to speak English
+# Create filter
+country1 <- c(001:001:150)
+country2 <- c(001:001:150)
+nonnative <- filter(pus, NATIVITY == 2 & POBP %in% country1 & ANC1P %in% country2)
+
+# Count number of different English levels
+cot <- tally(group_by(nonnative,ENG), sort = FALSE)
+cot2 <- cot$n
+
+pus$ENG <- factor(pus$ENG)
+levels(pus$ENG) <- c("NA", "1", "2", "3", "4")
+summary(pus$ENG)
+
+pus$ESR <- factor(pus$ESR)
+levels(pus$ESR) <- c("Employed", "Employed, not at work", "Unemployed", "Employed", "Employed, not at work", "Not in labor force")
+pus$ESRG <- ifelse(pus$ESR == "Employed", 1, 0)
+
+pus$COW <- factor(pus$COW)
+levels(pus$COW) <- c("Private profit", "Private non-profit", "Local government", "State government", "Federal government", "Self-employed", "Self-employed", "Working without pay", "Unemployed")
+
+pus$PAOC <- factor(pus$PAOC)
+levels(pus$PAOC) <- c("Children under 6", "Children 6 to 17", "Children under 6 and 6 to 17", "No children")
+pus$PAOCG <- ifelse(pus$PAOC == "No children", 0, 1)
+
+pus$SCHL <- ifelse(pus$SCHL <= 16, 16, pus$SCHL)
+pus$SCHL <- ifelse(pus$SCHL >= 17 & pus$SCHL <= 19, 19, pus$SCHL)
+pus$SCHL <- factor(pus$SCHL)
+levels(pus$SCHL) <- c("High school or lower", "Some college", "Associate's degree", "Bachelor's degree", "Master's degree", "Professional degree", "Doctorate degree")
+
+am <- subset(pus, ENG=C(NA,1,2,3,4))
+ggplot(pus, aes(AGEP, group = ENG)) + 
+  geom_bar(binwidth = 1, aes(colour = ENG, fill = ENG), alpha = 0.3) +
+  xlab("Age") + 
+  ylab("Count") + 
+  ggtitle("English Ability by Age")
+
+prop.table(table(pus$ENG))
+by(pus$AGEP, pus$ENG, summary)
+
+#education level
+data <- as.data.frame(prop.table(table(am$AGEP, am$SCHL)))
+data$margin <- prop.table(table(am$AGEP))
+data$height <- data$Freq/data$margin
+data$center <- c(0, cumsum(data$margin)[1:length(levels(factor(am$AGEP))) -1]) + data$margin/2
+ggplot(data, aes(center, height)) + 
+  geom_bar(stat = "identity", aes(width = margin, fill = Var2), col = "gray", alpha = 0.7) +
+  labs(x = "Age", y = "Frequency", title = "Education Level of the Non Native Speaker") +
+  scale_x_continuous(breaks = seq(0, 1, 0.1), labels=c("0", "8","16", "27", "31", "33", "36", "38", "41", "43", "46", "50", "93"))
+
+
+#employment
+data <- as.data.frame(prop.table(table(am$AGEP, am$ESR)))
+data$margin <- prop.table(table(am$AGEP))
+data$height <- data$Freq/data$margin
+data$center <- c(0, cumsum(data$margin)[1:length(levels(factor(am$AGEP))) -1]) + data$margin/2
+ggplot(data, aes(center, height)) + 
+  geom_bar(stat = "identity", aes(width = margin, fill = Var2), col = "gray", alpha = 0.7) +
+  labs(x = "Age", y = "Frequency", title = "Employment Status of the Non Native Speaker") +
+  scale_x_continuous(breaks = seq(0, 1, 0.1), labels=c("0", "8","16", "27", "31", "33", "36", "38", "41", "43", "46", "50", "93"))
+
+##chisq test with education and employment
+chisq.test(table(am$SCHL, am$ESR))
+data <- as.data.frame(prop.table(table(am$SCHL, am$ESR), margin = 1))
+ggplot(data, aes(x = Var1, y = Freq, group = Var2)) + 
+  geom_bar(stat = "identity", aes(colour = Var2, fill = Var2), alpha = 0.3) + 
+  labs(x = "Education", y = "Frequency", title = "Education vs Employment Status") + 
+  theme(axis.text.x = element_text(angle = 30, hjust = 1))
+
+#Wage and education
+wm <- subset(am, ESR == "Employed" & WAGP > 1000)
+ggplot(na.omit(wm), aes(x = SCHL, y = log10(WAGP))) + 
+  geom_boxplot(aes(fill = SCHL), alpha = 0.5) + 
+  labs(x = "Education", y = "Wage on Log10 Scale", title = "Wage vs Education") +
+  stat_summary(fun.y=mean, aes(colour = AGEP), geom="point", size = 5) +
+  stat_summary(fun.y=mean, aes(group=AGEP, colour = AGEP), geom="line") + 
+  theme(axis.text.x = element_text(angle = 30, hjust = 1)) + 
+  guides(fill = FALSE)

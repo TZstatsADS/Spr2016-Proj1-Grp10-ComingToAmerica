@@ -30,14 +30,13 @@ First things first: we set up our environment to include all the packages and li
 
 ```{r, message=FALSE, warning=FALSE}
 library(data.table)
+library(plyr)
 library(dplyr)
 library(googleVis)
 op <- options(gvis.plot.tag='chart')
 library(survey)
 library(ggplot2)
-library(plyr)
 detach("package:plyr", unload=TRUE)
-library(dplyr)
 library(reshape)
 library(plotrix)
 library(RColorBrewer)
@@ -184,3 +183,14 @@ Continuing our investigation, we wondered if the <i>nativity</i> of a child's pa
 
 
 As we see in the tree plot above, regardless of nativity, these individuals self-reported an overwhelming ability to speak English "Very Well", which is not too unsurprising, given that they are most likely in the American school system.
+
+
+```{r}
+source("lib/cj2452_functions.R")
+detach("package:plyr", unload=TRUE)
+population <- prepare_data()
+Eng_Pie(population)
+Time_Series(population)
+Sex_Decades(population)
+Age_Decades(population)
+```

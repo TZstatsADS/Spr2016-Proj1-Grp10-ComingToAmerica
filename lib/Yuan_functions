@@ -1,0 +1,124 @@
+#title: overview of non-native immigrants education level and employment
+
+
+install.packages("data.table")
+install.packages("plotrix")
+install.packages("ggplot2")
+install.packages("RColorBrewer")
+install.packages("gridExtra")
+install.packages("maps")
+library(data.table)
+library(dplyr)
+library(plotrix)
+library(ggplot2)
+library(RColorBrewer)
+library(gridExtra)
+library(maps)
+
+#read data
+prepare_data <- function(){
+  cols <- c("ENG", "NATIVITY", "POBP", "ANC1P", "SEX", "SCHL","COW", "AGEP", "PAOC", "ST", "ESR", "WAGP")
+  pusa <- fread("C:/Users/mangmangyuzhou/Desktop/2016 Spring/data science/project 1/2013-american-community-survey/pums/ss13pusa.csv", select = cols)
+  pusb <- fread("C:/Users/mangmangyuzhou/Desktop/2016 Spring/data science/project 1/2013-american-community-survey/pums/ss13pusb.csv", select = cols)
+  pus1 <- bind_rows(pusa, pusb)
+  rm(pusa, pusb)
+  gc()
+  # Create filter
+  country <- fread("file:///C:/Users/mangmangyuzhou/Desktop/2016 Spring/data science/project 1/2013-american-community-survey/pums/country.csv")
+  #country <- c(001:001:150)
+  pus <- filter(pus1, NATIVITY == 2 & POBP %in% country$V1)
+  
+  # Count number of different English levels
+  cot <- tally(group_by(pus,ENG), sort = FALSE)
+  cot2 <- cot$n
+}
+
+define_data <- function(){
+  #define ENG as 5 different levels
+  pus$ENG[is.na(pus$ENG)] <- 5
+  pus$ENG <- factor(pus$ENG)
+  levels(pus$ENG) <- c("1", "2", "3", "4","NA")
+  summary(pus$ENG)
+  
+  #define ESR as different levels
+  pus$ESR <- factor(pus$ESR)
+  levels(pus$ESR) <- c("Employed", "Employed, not at work", "Unemployed", "Employed", "Employed, not at work", "Not in labor force")
+  pus$ESRG <- ifelse(pus$ESR == "Employed", 1, 0)
+  
+  pus$COW <- factor(pus$COW)
+  levels(pus$COW) <- c("Private profit", "Private non-profit", "Local government", "State government", "Federal government", "Self-employed", "Self-employed", "Working without pay", "Unemployed")
+  
+  pus$SCHL <- ifelse(pus$SCHL <= 16, 16, pus$SCHL)
+  pus$SCHL <- ifelse(pus$SCHL >= 17 & pus$SCHL <= 19, 19, pus$SCHL)# last #pus$schl means rest are same
+  pus$SCHL <- factor(pus$SCHL)
+  levels(pus$SCHL) <- c("High school or lower", "Some college", "Associate's degree", "Bachelor's degree", "Master's degree", "Professional degree", "Doctorate degree")
+  
+  #creat am for convenience to use
+  am <- subset(pus, ENG=c(NA,1,2,3,4))
+}
+
+
+#creat graph of English ability and age.
+Eng_ability <- function(){
+  png("figs/states1.png")
+  plot1<-ggplot(pus, aes(AGEP, group = ENG)) + 
+    geom_histogram(binwidth = 1, aes(colour = ENG, fill = ENG), alpha = 0.3) +
+    xlab("Age") + 
+    ylab("Count") + 
+    ggtitle("English Ability by Age")
+  print(plot1)
+  dev.off()
+}
+
+Education<-function(){
+  #great the proportion for next step
+  prop.table(table(pus$ENG))
+  by(pus$AGEP, pus$ENG, summary)
+  
+  #education level
+  
+  #form a data frame for the graph of education level and age
+  data <- as.data.frame(prop.table(table(am$AGEP, am$SCHL)))
+  data$margin <- prop.table(table(am$AGEP))
+  data$height <- data$Freq/data$margin
+  data$center <- c(0, cumsum(data$margin)[1:length(levels(factor(am$AGEP))) -1]) + data$margin/2
+  png("figs/states1.png")
+  plot2<-ggplot(data, aes(center, height)) + 
+    geom_bar(stat = "identity", aes(width = margin, fill = Var2), col = "gray", alpha = 0.7) +
+    labs(x = "Age", y = "Frequency", title = "Education Level of the Non Native Speaker") +
+    scale_x_continuous(breaks = seq(0, 1, 0.1), labels= round(seq(10,100,length.out = 11)))
+  print(plot2)
+  dev.off()
+}
+
+Employment<-function(){
+  #employment
+  data <- as.data.frame(prop.table(table(am$AGEP, am$ESR)))
+  data$margin <- prop.table(table(am$AGEP))
+  data$height <- data$Freq/data$margin
+  data$center <- c(0, cumsum(data$margin)[1:length(levels(factor(am$AGEP))) -1]) + data$margin/2
+  png("figs/states1.png")
+  plot3<-ggplot(data, aes(center, height)) + 
+    geom_bar(stat = "identity", aes(width = margin, fill = Var2), col = "gray", alpha = 0.7) +
+    labs(x = "Age", y = "Frequency", title = "Employment Status of the Non Native Speaker") +
+    scale_x_continuous(breaks = seq(0, 1, 0.1), labels=c("16", "27", "31", "33", "36", "38", "41", "43", "46", "50", "93"))
+  print(plot3)
+  dev.off()
+}
+
+chisq<-function(){
+  ##chisq test with education and employment
+  chisq.test(table(am$SCHL, am$ESR))
+}
+
+Employment&EDU<-function(){
+  ##education level combine with employment in proportion
+  data <- as.data.frame(prop.table(table(am$SCHL, am$ESR), margin = 1))
+  png("figs/states1.png")
+  plot4<-ggplot(data, aes(x = Var1, y = Freq, group = Var2)) + 
+    geom_bar(stat = "identity", aes(colour = Var2, fill = Var2), alpha = 0.3) + 
+    labs(x = "Education", y = "Frequency", title = "Education vs Employment Status") + 
+    theme(axis.text.x = element_text(angle = 30, hjust = 1))
+  print(plot4)
+  dev.off()
+}

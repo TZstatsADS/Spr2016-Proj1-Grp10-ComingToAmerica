@@ -56,12 +56,11 @@ common_states(population)
 <p><img src="figs/common_states.png" alt="plot of chunk unnamed-chunk-1"> </p>
 ```{r}
 source("lib/jmd2228_functions.R")
-population2 <- prepare_data()
-had_child_t_test(population2)
+pops <- prepare_data()
+had_child_t_test(pops)
 ```
 
 ```{r, results='asis',tidy=FALSE}
-had_child_bar_chart <- function(pops){
   
   # Graph stacked bar charts
   plotframe <- data.frame(ability = c("Very Well", "Well", "Not Well", "Not at all"), child = c(prop.table(table(pops$children))), nochild = c(prop.table(table(pops$nochildren))))
@@ -70,20 +69,16 @@ had_child_bar_chart <- function(pops){
   chart <- gvisColumnChart(plotframe, xvar="ability", yvar=c("child", "nochild"), options=list(isStacked=TRUE, title="Parents' Ability to Speak English Stacked By Birth of Child", vAxes="[{title:'Percent of Sub Population'}]", series="[{labelInLegend: 'Child'}, {labelInLegend: 'No child'}]"))
                            
   plot(chart)
-}
-
-had_child_bar_chart(population2)
 
 ```
 
 ```{r, results='asis',tidy=FALSE}
-childs_parents_nativity <- function(){
   #### Gathering data ####
   population2 <- fread("data/josh2.csv")
   #eng_speaking_countries <- fread("data/eng_speaking.csv")
   
   # Children's ability to speak english
-  sub_pop_3 <- select(population, ENG, NOP, NATIVITY, AGEP)
+  sub_pop_3 <- select(population2, ENG, NOP, NATIVITY, AGEP)
   sub_pop_3 <- subset(sub_pop_3, NATIVITY == 1 & AGEP <= 18)
   sub_pop_3 <- select(sub_pop_3, ENG, NOP)
   
@@ -138,9 +133,6 @@ childs_parents_nativity <- function(){
   tree <- gvisTreeMap(childframe,  idvar="id", parentvar="parent", sizevar="childsize", colorvar="fac", options=list(minColor='#EDF8FB',midColor='#66C2A4',maxColor='#006D2C'))
   plot(tree)
   
-}
-
-childs_parents_nativity()
 ```
 
 ```{r}

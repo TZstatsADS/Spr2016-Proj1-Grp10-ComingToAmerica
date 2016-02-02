@@ -1,0 +1,105 @@
+---
+title: "Coming to America: Taking A Closer Look at Non-English-Speaking Immigrants in the American Community Survey 2013"
+author: "Joshua Michael Dillon, Schinria Islam, Chenlu Ji, Zhibo Wan, Yuan Zhao"
+date: "February 3, 2016"
+output: html_document
+---
+
+#Coming to America: Taking A Closer Look at Non-English-Speaking Immigrants in the American Community Survey 2013
+
+##Joshua Michael Dillon, Schinria Islam, Chenlu Ji, Zhibo Wan, Yuan Zhao
+##February 3, 2016
+
+For our project, we had four primary motivations. First, we wanted to further understand a group of people who are vital to the success and growth of the United States: immigrants. Approximately 13% of the United States population is composed of immigrants, or nearly 41 million residents, and it is no surprise that much of our country's innovation and economic engine is fueled by the diversity of our people and ideas that come from within our borders. We wanted to take a closer look at people who currently live in the United States but were not born here, so we focus on those residents who are non-native to the United States. 
+
+Second, we thought about the transition that many immigrants face when arriving to the US, including adapting to a new culture, climate, and set of values. One transition faced by immigrants that is captured in the American Community Survey is the transition of adopting English as a primary language. Thus, our analysis pays particular attention to the variable "ENG" which measures respondents' ability to speak English. 
+
+Third, we wanted to shed light on immigration because it is a topic that has been a highlight of much recent political discourse. As we are in a presidential election year, there has been heated debate about policies that would affect many incoming future immigrants. With the topic of immigration on many people's minds, including ours, we wanted to highlight a subgroup of our country who are extremely important to understand at this time in our history.
+
+Lastly, we wanted to understand the respondents of the American Community Survey in particular. We realized that the individuals who complete these surveys each year make a huge impact on decisions made by local planners, policy makers, and community organizations. American Community Survey data is used by Federal Agencies,  state and local agencies, NGOs, emergency planners, businesses, educators, journalists, and the public, among other groups, and we wanted to gain a greater understanding of the respondents who completed the American Community Survey in 2013 and helped inform decisions over the last few years and gain insight into trends that may exist more broadly across the country.
+
+```{r}
+
+
+```
+
+##Setting up our Environment
+
+First things first: we set up our environment to include all the packages and libraries we need for our analysis.
+
+
+```{r}
+library(data.table)
+library(dplyr)
+library(googleVis)
+op <- options(gvis.plot.tag='chart')
+library(survey)
+library(ggplot2)
+library(plyr)
+detach("package:plyr", unload=TRUE)
+library(dplyr)
+library(reshape)
+library(plotrix)
+library(RColorBrewer)
+library(wordcloud)
+library(tm)
+library(SnowballC)
+```
+
+Next, we wanted to get a sense of where immigrants from non-English speaking countries live in the US, by state. In order to do this, we had to first ask ourselves: which of the immigrants in our sample did not likely speak English back home? 
+
+Using the list available on Wikipedia's page entitled <i>"List of territorial entities where English is an official language"</i> we determined which countries do not have English as their primary and official language. By doing this, we could ensure that the non-Native respondents in our sample were not expected to know English prior to immigrating to the United States. 
+
+```{r}
+source("lib/sri2116_functions.R")
+population <- prepare_data()
+states(population)
+
+```
+
+##U.S. States
+
+The graph below shows us the current U.S. states in which the non-native respondents who completed the American Community Survey (and did not come from an English-speaking country) currently reside.
+
+<p><img src="figs/states1.png" alt="plot of chunk unnamed-chunk-1"> </p>
+
+```{r}
+popular_languages(population)
+
+```
+
+##Primary Language Spoken at Home
+
+The wordcloud below visualizes the primary language spoken at home (excluding English) by our population of interest: non-native American Community Survey respondents who are originally from non-English speaking countries.
+
+<p><img src="figs/wordcloud.png" alt="plot of chunk unnamed-chunk-1"> </p>
+```{r}
+common_languages(population)
+```
+
+##Most Common Languages Spoken at Home by Ability to Speak English
+
+Above we determined the top languages spoken at home, and the barplot below shows how people who speak these top languages at home vary in their ability to speak to English.
+
+<p><img src="figs/common_lang.png" alt="plot of chunk unnamed-chunk-1"> </p>
+```{r}
+common_states(population)
+```
+
+##Most Common U.S. States by Ability to Speak English
+
+Above we determined the most populous immigrant states, and the barplot below shows how people who reside in these states vary in their ability to speak to English.
+
+<p><img src="figs/common_states.png" alt="plot of chunk unnamed-chunk-1"> </p>
+```{r}
+
+```
+
+```{r}
+
+```
+
+```{r}
+
+```
+

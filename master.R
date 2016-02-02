@@ -1,9 +1,6 @@
 ########################################################################
 # Team 10 Code
-#
-#
-#
-#
+# 
 #
 #
 ########################################################################
@@ -29,3 +26,4 @@ childs_parents_nativity()
 source("lib/sri2116_functions.R")
 population <- prepare_data()
 states(population)
+popular_languages()

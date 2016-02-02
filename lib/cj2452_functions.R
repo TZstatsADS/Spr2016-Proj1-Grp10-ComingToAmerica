@@ -1,4 +1,4 @@
-
+setwd("/Volumes/HDD Data/Chenlu's files/Courses/Columbia/W4249/project1")
 # run the above line first before calling a function inside this file
 
 prepare_data <- function(){
@@ -10,7 +10,7 @@ Eng_Pie <- function(population){
  nonnative0 <- population
  
  # Count number of different English levels
- cot <- tally(group_by(nonnative0,ENG), sort = FALSE)
+ cot <- tally(group_by(nonnative0, ENG, wt = PWGTP), sort = FALSE)
  cot2 <- cot$n
  
  #plot pie chart
@@ -106,7 +106,7 @@ Age_Decades <- function(population){
   levels(nonnative$AGEG) <- c("0's", "10's", "20's", "30's", "40's", "50's", "60's~")
   print(ggplot(nonnative, aes(x=DECADE)) + 
           geom_bar(aes(fill=AGEG), position="fill") +
-          ggtitle("Age Group at Immigrant Year") + labs(x = "Decade", y = "Fraction"))
+          ggtitle("Age Group at Immigrant Decade") + labs(x = "Decade", y = "Fraction"))
   dev.copy(png, "figs/Age_at_entry.png")
   dev.off()
 }

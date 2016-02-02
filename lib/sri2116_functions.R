@@ -22,11 +22,11 @@ notnative.noteng <- filter(notnative, notenglish == 1) # POBP: birthplace does n
 states <- function(population){
   notnative.noteng <- population
   ##In What States Do Immigrants from Non-English Speaking Countries Live?
-
+  png("figs/states1.png")
   ggplot(notnative.noteng) + geom_bar(aes(x=name), color= "black", fill="indianred") + coord_flip() + theme(axis.text.y=element_text(size=rel(0.8))) + xlab("U.S. State") + ylab("Number of Respondents") + ggtitle("In What States Do Immigrants from Non-English Speaking Countries Live?")
   #png("figs/sri2116_states.png")
   #ggplot(notnative.noteng) + geom_bar(aes(x=name), color= "black", fill="indianred") + coord_flip() + theme(axis.text.y=element_text(size=rel(0.8))) + xlab("U.S. State") + ylab("Number of Respondents") + ggtitle("In What States Do Immigrants from Non-English Speaking Countries Live?")
-  #dev.off()
+  dev.off()
   # MIGHT NEED TO CALL DEV ON
 }
 
@@ -38,7 +38,9 @@ notnative.noteng$LANP <- as.factor(notnative.noteng$LANP)
 #View(levels(notnative.noteng$LANP))
 levels(notnative.noteng$LANP) <- c("Jamaican Creole","Krio","German","Yiddish","Dutch","Afrikaans","Swedish","Danish","Norwegian","Italian","French","Patois","French Creole","Spanish","Portuguese","Romanian","Irish Gaelic","Greek","Albanian","Russian","Ukrainian","Czech","Polish","Slovak","Bulgarian","Macedonian","Serbo-Croatian","Croatian","Serbian","Lithuanian","Latvian","Armenian","Persian","Pashto","Kurdish","India N.E.C.","Hindi","Bengali","Panjabi","Marathi","Gujarati","Urdu","Nepali","Sindhi","Pakistan N.E.C.","Sinhalese","Finnish","Hungarian","Uighur","Turkish","Mongolian","Telugu","Kannada","Malayalam","Tamil","Chinese","Cantonese","Mandarin","Formosan","Burmese","Thai","Mien","Hmong","Japanese","Korean","Laotian","Mon-Khmer, Cambodian","Vietnamese","Indonesian","Malay","Tagalog","Bisayan","Sebuano","Ilocano","Micronesian","Chamorro","Trukese","Samoan","Tongan","Hawaiian","Arabic","Hebrew","Syriac","Amharic","Cushite","Swahili","Bantu","Mande","Fulani","Kru, Ibo, Yoruba","African","Other Algonquian languages","Ojibwa","Dakota","Keres","Cherokee","Zuni","Other Indo-European languages","Other Asian languages","Other Pacific Island languages","Other specified African languages","Aleut-Eskimo languages","South/Central American Indian languages","Other Specified North American Indian languages","Other languages")
 LanguageCorpus <- paste(unlist(notnative.noteng$LANP), collapse =" ")
+png("figs/wordcloud.png")
 wordcloud(LanguageCorpus, scale=c(5,.5), max.words = 1000, random.order = FALSE, random.color = TRUE, colors = "red", ordered.colors = TRUE)
+dev.off()
 }
 
 common_languages<- function(population){
@@ -59,19 +61,19 @@ notnative.noteng$top.LANP <- ifelse(notnative.noteng$LANP == "Russian","Russian"
 notnative.noteng$top.LANP <- ifelse(notnative.noteng$LANP == "Arabic","Arabic", notnative.noteng$top.LANP)
 notnative.noteng$top.LANP <- ifelse(notnative.noteng$LANP == "Hindi","Hindi", notnative.noteng$top.LANP)
 notnative.noteng$top.LANP <- ifelse(notnative.noteng$LANP == "Portuguese","Portuguese", notnative.noteng$top.LANP)
-notnative.noteng$top.LANP <- ifelse(notnative.noteng$LANP == "German","German", notnative.noteng$top.LANP)
 notnative.noteng.topLANP <- na.omit(notnative.noteng)
 
 notnative.noteng.topLANP$rENG <- as.factor(notnative.noteng.topLANP$rENG)
 levels(notnative.noteng.topLANP$rENG)
 levels(notnative.noteng.topLANP$rENG) <- c("Not at All","Not Well","Well","Very Well")
-
+png("figs/common_lang.png")
 ggplot(notnative.noteng.topLANP, aes(rENG, group=top.LANP)) + 
   geom_bar(aes(colour=top.LANP, fill=top.LANP), alpha=0.9) +
   xlab("Ability to Speak English") + ylab("Number of Respondents") + 
   ggtitle("English-Speaking Ability by Most Common Languages Spoken At Home") +
-  scale_fill_brewer(palette = "Set1") + scale_colour_brewer(palette = "Set1") + theme(panel.background = element_rect(fill = "lightblue"))
-  
+  scale_fill_brewer(palette = "Set1") + scale_colour_brewer(palette = "Set1")
+dev.off()
+   #+ theme(panel.background = element_rect(fill = "lightblue"))
 }
 
 common_states <- function(population){
@@ -92,13 +94,13 @@ notnative.noteng.top.states <- na.omit(notnative.noteng)
 notnative.noteng.top.states$rENG <- as.factor(notnative.noteng.top.states$rENG)
 #levels(notnative.noteng.top.states$rENG)
 levels(notnative.noteng.top.states$rENG) <- c("Not at All","Not Well","Well","Very Well")
-
+png("figs/common_states.png")
 ggplot(notnative.noteng.top.states, aes(rENG, group=top.states)) + 
   geom_bar(aes(colour=top.states, fill=top.states), position=position_dodge(), alpha=0.9) +
   xlab("Ability to Speak English") + ylab("Number of Respondents") + 
   ggtitle("English-Speaking Ability in Most Populous Immigrant States")  +
   scale_fill_brewer(palette = "Paired") + scale_colour_brewer(palette = "Paired")  + theme(panel.background = element_rect(fill = "lightyellow"))
-  
+  dev.off()
   
   
   

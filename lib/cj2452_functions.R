@@ -1,4 +1,4 @@
-
+setwd("/Volumes/HDD Data/Chenlu's files/Courses/Columbia/W4249/project1")
 # run the above line first before calling a function inside this file
 
 prepare_data <- function(){
@@ -10,7 +10,7 @@ Eng_Pie <- function(population){
  nonnative0 <- population
  
  # Count number of different English levels
- cot <- tally(group_by(nonnative0,ENG), sort = FALSE)
+ cot <- tally(group_by(nonnative0, ENG, wt = PWGTP), sort = FALSE)
  cot2 <- cot$n
  
  #plot pie chart

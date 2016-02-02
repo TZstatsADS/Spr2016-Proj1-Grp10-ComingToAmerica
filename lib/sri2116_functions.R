@@ -67,11 +67,12 @@ notnative.noteng.topLANP$rENG <- as.factor(notnative.noteng.topLANP$rENG)
 levels(notnative.noteng.topLANP$rENG)
 levels(notnative.noteng.topLANP$rENG) <- c("Not at All","Not Well","Well","Very Well")
 png("figs/common_lang.png")
-ggplot(notnative.noteng.topLANP, aes(rENG, group=top.LANP)) + 
+plot2<-ggplot(notnative.noteng.topLANP, aes(rENG, group=top.LANP)) + 
   geom_bar(aes(colour=top.LANP, fill=top.LANP), alpha=0.9) +
   xlab("Ability to Speak English") + ylab("Number of Respondents") + 
   ggtitle("English-Speaking Ability by Most Common Languages Spoken At Home") +
   scale_fill_brewer(palette = "Set1") + scale_colour_brewer(palette = "Set1")
+print(plot2)
 dev.off()
    #+ theme(panel.background = element_rect(fill = "lightblue"))
 }
@@ -95,11 +96,12 @@ notnative.noteng.top.states$rENG <- as.factor(notnative.noteng.top.states$rENG)
 #levels(notnative.noteng.top.states$rENG)
 levels(notnative.noteng.top.states$rENG) <- c("Not at All","Not Well","Well","Very Well")
 png("figs/common_states.png")
-ggplot(notnative.noteng.top.states, aes(rENG, group=top.states)) + 
+plot3<-ggplot(notnative.noteng.top.states, aes(rENG, group=top.states)) + 
   geom_bar(aes(colour=top.states, fill=top.states), position=position_dodge(), alpha=0.9) +
   xlab("Ability to Speak English") + ylab("Number of Respondents") + 
   ggtitle("English-Speaking Ability in Most Populous Immigrant States")  +
   scale_fill_brewer(palette = "Paired") + scale_colour_brewer(palette = "Paired")  + theme(panel.background = element_rect(fill = "lightyellow"))
+  print(plot3)
   dev.off()
   
   

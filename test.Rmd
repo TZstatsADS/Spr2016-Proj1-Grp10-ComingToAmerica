@@ -45,15 +45,15 @@ states(population)
 popular_languages(population)
 
 ```
-
+<p><img src="figs/wordcloud.png" alt="plot of chunk unnamed-chunk-1"> </p>
 ```{r}
 common_languages(population)
 ```
-
+<p><img src="figs/common_lang.png" alt="plot of chunk unnamed-chunk-1"> </p>
 ```{r}
 common_states(population)
 ```
-
+<p><img src="figs/common_states.png" alt="plot of chunk unnamed-chunk-1"> </p>
 ```{r}
 
 ```

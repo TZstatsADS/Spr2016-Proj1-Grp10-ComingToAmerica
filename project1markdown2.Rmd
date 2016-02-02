@@ -57,7 +57,7 @@ common_states(population)
 ```{r}
 source("lib/jmd2228_functions.R")
 population2 <- prepare_data()
-had_child_t_test
+had_child_t_test()
 
 ```
 
@@ -74,8 +74,10 @@ had_child_bar_chart <- function(pops){
   #print(chart, "bar.png")
 }
 
-had_child_bar_chart()
+had_child_bar_chart(population)
+
 ```
+
 ```{r, results='asis',tidy=FALSE}
 childs_parents_nativity <- function(){
   #### Gathering data ####

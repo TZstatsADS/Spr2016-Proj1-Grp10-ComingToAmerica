@@ -1,0 +1,83 @@
+---
+title: "Welcome to America: Taking A Closer Look at Non-English-Speaking Immigrants in the ACS 2013"
+author: "Joshua Michael Dillon, Schinria Islam, Chenlu Ji, Zhibo Wan, Yuan Zhao"
+date: "February 3, 2016"
+output: html_document
+---
+
+
+```{r}
+
+
+```
+
+##Setting up our Environment
+
+First things first: we set up our environment to include all the packages and libraries needed for analysis.
+
+
+```{r}
+library(data.table)
+library(dplyr)
+library(googleVis)
+library(survey)
+library(ggplot2)
+library(plyr)
+detach("package:plyr", unload=TRUE)
+library(dplyr)
+library(reshape)
+library(plotrix)
+library(RColorBrewer)
+```
+
+```{r}
+source("lib/jmd2228_functions.R")
+population <- prepare_data()
+had_child_t_test(population)
+had_child_bar_chart(population)
+childs_parents_nativity()
+```
+
+```{r}
+source("lib/sri2116_functions.R")
+population <- prepare_data()
+states(population)
+#popular_languages()
+```
+
+
+```{r}
+source("lib/cj2452_functions.R")
+population <- prepare_data()
+Eng_Pie(population)
+Time_Series(population)
+Sex_Decades(population)
+Age_Decades(population)
+
+```
+
+
+```{r}
+
+```
+
+```{r}
+
+```
+
+```{r}
+
+```
+
+```{r}
+
+```
+
+```{r}
+
+```
+
+```{r}
+
+```
+

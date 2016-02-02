@@ -34,6 +34,7 @@ had_child_bar_chart <- function(pops){
   chart <- gvisColumnChart(plotframe, xvar="ability", yvar=c("child", "nochild"), options=list(isStacked=TRUE, title="Parents' Ability to Speak English Stacked By Birth of Child", vAxes="[{title:'Percent of Sub Population'}]", series="[{labelInLegend: 'Child'}, {labelInLegend: 'No child'}]"))
                            
   plot(chart)
+  #print(chart, "bar.png")
 }
 
 childs_parents_nativity <- function(){

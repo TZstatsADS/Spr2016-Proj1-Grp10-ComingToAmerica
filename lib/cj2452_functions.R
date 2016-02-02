@@ -106,7 +106,7 @@ Age_Decades <- function(population){
   levels(nonnative$AGEG) <- c("0's", "10's", "20's", "30's", "40's", "50's", "60's~")
   print(ggplot(nonnative, aes(x=DECADE)) + 
           geom_bar(aes(fill=AGEG), position="fill") +
-          ggtitle("Age Group at Immigrant Year") + labs(x = "Decade", y = "Fraction"))
+          ggtitle("Age Group at Immigrant Decade") + labs(x = "Decade", y = "Fraction"))
   dev.copy(png, "figs/Age_at_entry.png")
   dev.off()
 }

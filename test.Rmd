@@ -20,7 +20,6 @@ First things first: we set up our environment to include all the packages and li
 library(data.table)
 library(dplyr)
 library(googleVis)
-op <- options(gvis.plot.tag='chart')
 library(survey)
 library(ggplot2)
 library(plyr)

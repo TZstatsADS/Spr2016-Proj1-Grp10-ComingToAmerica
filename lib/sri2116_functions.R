@@ -22,9 +22,10 @@ notnative.noteng <- filter(notnative, notenglish == 1) # POBP: birthplace does n
 states <- function(population){
   notnative.noteng <- population
   ##In What States Do Immigrants from Non-English Speaking Countries Live?
-  #png("figs/states1.png")
-  ggplot(notnative.noteng) + geom_bar(aes(x=name), color= "black", fill="indianred") + coord_flip() + theme(axis.text.y=element_text(size=rel(0.8))) + xlab("U.S. State") + ylab("Number of Respondents") + ggtitle("In What States Do Immigrants from Non-English Speaking Countries Live?")
-  dev.copy(png, "figs/states1.png")
+  png("figs/states1.png")
+  plot1<-ggplot(notnative.noteng) + geom_bar(aes(x=name), color= "black", fill="indianred") + coord_flip() + theme(axis.text.y=element_text(size=rel(0.8))) + xlab("U.S. State") + ylab("Number of Respondents") + ggtitle("In What States Do Immigrants from Non-English Speaking Countries Live?")
+  #dev.copy(png, "figs/states1.png")
+  print(plot1)
   dev.off()
   # MIGHT NEED TO CALL DEV ON
 }

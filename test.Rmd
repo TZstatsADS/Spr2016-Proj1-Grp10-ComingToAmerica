@@ -38,13 +38,11 @@ library(SnowballC)
 source("lib/sri2116_functions.R")
 population <- prepare_data()
 states(population)
-![states pic](figs/states1.png)
 
 ```
-
+<p><img src="figs/states1.png" alt="plot of chunk unnamed-chunk-1"> </p>
 ```{r}
 popular_languages(population)
-![]
 
 ```
 

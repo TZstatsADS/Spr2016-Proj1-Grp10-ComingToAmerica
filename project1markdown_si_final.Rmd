@@ -50,7 +50,7 @@ Next, we wanted to get a sense of where immigrants from non-English speaking cou
 Using the list available on Wikipedia's page entitled <i>"List of territorial entities where English is an official language"</i> we determined which countries do not have English as their primary and official language. By doing this, we could ensure that the non-Native respondents in our sample were not expected to know English prior to immigrating to the United States. 
 
 ```{r, message=FALSE, warning=FALSE, results='hide'}
-source("lib/sri2116_functions.R")
+source("lib/sri2116_functions_edits_noRN.R")
 population <- prepare_data()
 states(population)
 
@@ -82,6 +82,7 @@ Above we determined the top languages spoken at home, and the barplot below show
 
 <p><img src="figs/common_lang.png" alt="plot of chunk unnamed-chunk-1"> </p>
 ```{r, message=FALSE, warning=FALSE, results='hide'}
+
 common_states(population)
 ```
 

@@ -58,7 +58,6 @@ common_states(population)
 source("lib/jmd2228_functions.R")
 population2 <- prepare_data()
 had_child_t_test()
-
 ```
 
 ```{r, results='asis',tidy=FALSE}
@@ -71,17 +70,16 @@ had_child_bar_chart <- function(pops){
   chart <- gvisColumnChart(plotframe, xvar="ability", yvar=c("child", "nochild"), options=list(isStacked=TRUE, title="Parents' Ability to Speak English Stacked By Birth of Child", vAxes="[{title:'Percent of Sub Population'}]", series="[{labelInLegend: 'Child'}, {labelInLegend: 'No child'}]"))
                            
   plot(chart)
-  #print(chart, "bar.png")
 }
 
-had_child_bar_chart(population)
+had_child_bar_chart(population2)
 
 ```
 
 ```{r, results='asis',tidy=FALSE}
 childs_parents_nativity <- function(){
   #### Gathering data ####
-  population <- fread("data/josh2.csv")
+  population2 <- fread("data/josh2.csv")
   #eng_speaking_countries <- fread("data/eng_speaking.csv")
   
   # Children's ability to speak english

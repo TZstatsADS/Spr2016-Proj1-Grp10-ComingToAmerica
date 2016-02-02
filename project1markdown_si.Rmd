@@ -91,19 +91,96 @@ common_states(population)
 Above we determined the most populous immigrant states, and the barplot below shows how people who reside in these states vary in their ability to speak to English.
 
 <p><img src="figs/common_states.png" alt="plot of chunk unnamed-chunk-1"> </p>
-```{r}
-```
 
+#Explanatory Variables
+
+##Birth of Children
 Now that we understand the languages spoken by our immigrant population, we wanted to explore variables that could have an affect on one's ability to speak English.
 
 One such variable was <i>FER</i>, a binary flag that indicated whether or not a person had a children in the last twelve months. We used the variable <i>MIG</i> to narrow our population to only respondents who had moved to the United States in the past year. This would give us a look at how having, and raising, a child in the United States would affect one's English speaking ability. 
 
 
 ```{r, message=FALSE, warning=FALSE, results='hide'}
+library("plyr")
 source("lib/jmd2228_functions.R")
 population <- prepare_data()
+population2 <- prepare_data2()
 ```
 ```{r}
 had_child_t_test(population)
 ```
 We ran a t-test comparing the reported Englishs speaking ability of individuals who have had children vs who have not had children, and found that at the 5% significance level, those who did not have children were statistically signficantly <i>better</i> at speaking English than their parental counterparts.
+
+In addition, this variable can be viewed graphically below, with an interactive bar chart. We see these results are consistent with our t-test, as a greater percentage of the population with no children reports better English.
+
+```{r, results='asis',tidy=FALSE}
+  # Graph stacked bar charts
+  plotframe <- data.frame(ability = c("Very Well", "Well", "Not Well", "Not at all"), child = c(prop.table(table(population$children))), nochild = c(prop.table(table(population$nochildren))))
+
+  # Plot bar chart
+  chart <- gvisColumnChart(plotframe, xvar="ability", yvar=c("child", "nochild"), options=list(isStacked=TRUE, title="Parents' Ability to Speak English Stacked By Birth of Child", vAxes="[{title:'Percent of Sub Population'}]", series="[{labelInLegend: 'Child'}, {labelInLegend: 'No child'}]"))
+                           
+  plot(chart)
+```
+
+
+## Children's English Ability by Parent's Nativity
+
+Continuing our investigation, we wondered if the <i>nativity</i> of a child's parents (meaning whether or not they are foreign born) would affect the ability of the child to speak English. For this analysis we narrowed the population to children under the age of 18 living with their parents.
+
+```{r, results='asis',tidy=FALSE}
+  sub_pop_3 <- population2
+  childframe <- data.frame(id = as.numeric(sub_pop_3$ENG), parent = as.numeric(sub_pop_3$NOP), childsize = c(rep(1,length(sub_pop_3$ENG))), fac = as.numeric(sub_pop_3$ENG))
+  childframe <- na.omit(childframe)
+  childframe <- aggregate(childframe$childsize, by=list(childframe$parent, childframe$id), sum)
+  childframe <- data.frame(id = childframe$Group.2, parent = childframe$Group.1, childsize = childframe$x, fac = childframe$x)
+  
+  
+  for(i in 1:dim(childframe)[1]){
+    if (childframe$parent[i] == 1){
+      childframe$parent[i] = "Both Native"
+    } else if (childframe$parent[i] == 2){
+      childframe$parent[i] = "Father Foreign"
+    } else if (childframe$parent[i] == 3){
+      childframe$parent[i] = "Mother Foreign"
+    } else if (childframe$parent[i] == 4){
+      childframe$parent[i] = "Both Foreign"
+    } else if (childframe$parent[i] == 5){
+      childframe$parent[i] = "Only Father, Native"
+    } else if (childframe$parent[i] == 6){
+      childframe$parent[i] = "Only Father, Foreign"
+    } else if (childframe$parent[i] == 7){
+      childframe$parent[i] = "Only Mother, Native"
+    } else {
+      childframe$parent[i] = "Only Mother, Foreign"
+    }
+    
+    if (childframe$id[i] == 1){
+      childframe$id[i] = paste("Very Well Count:", childframe$childsize[i])
+    } else if (childframe$id[i] == 2){
+      childframe$id[i] = paste("Well Count:", childframe$childsize[i])
+    } else if (childframe$id[i] == 3){
+      childframe$id[i] = paste("Not well Count:", childframe$childsize[i])
+    } else {
+      childframe$id[i] = paste("Not at all Count:", childframe$childsize[i])
+    }
+  }
+  
+  # Analysis Population 2
+  childframe <- rbind(c("TOP",NA,10, 2), childframe)
+  childframe <- rbind(c("Both Native","TOP",5, 4), childframe)
+  childframe <- rbind(c("Father Foreign","TOP",5, 5), childframe)
+  childframe <- rbind(c("Mother Foreign","TOP",5, 6), childframe)
+  childframe <- rbind(c("Both Foreign","TOP",5, 7), childframe)
+  childframe <- rbind(c("Only Father, Native","TOP",5, 8), childframe)
+  childframe <- rbind(c("Only Father, Foreign","TOP",5, 9), childframe)
+  childframe <- rbind(c("Only Mother, Native","TOP",5, 10), childframe)
+  childframe <- rbind(c("Only Mother, Foreign","TOP",5, 11), childframe)
+  childframe$id[36] = "Not at all Count: 9"
+  
+  tree <- gvisTreeMap(childframe,  idvar="id", parentvar="parent", sizevar="childsize", colorvar="fac", options=list(minColor='#EDF8FB',midColor='#66C2A4',maxColor='#006D2C'))
+  plot(tree)
+```
+
+
+As we see in the tree plot above, regardless of nativity, these individuals self-reported an overwhelming ability to speak English "Very Well", which is not too unsurprising, given that they are most likely in the American school system.

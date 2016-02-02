@@ -19,6 +19,18 @@ prepare_data <- function(){
   return(pops)
 }
 
+prepare_data2 <- function(){
+  population <- fread("data/josh2.csv")
+  #eng_speaking_countries <- fread("data/eng_speaking.csv")
+  
+  # Children's ability to speak english
+  sub_pop_3 <- select(population, ENG, NOP, NATIVITY, AGEP)
+  sub_pop_3 <- subset(sub_pop_3, NATIVITY == 1 & AGEP <= 18)
+  sub_pop_3 <- select(sub_pop_3, ENG, NOP)
+  
+  return(sub_pop_3)
+}
+
 
 had_child_t_test <- function(pops){
   ######## T - test ########
@@ -37,15 +49,15 @@ had_child_bar_chart <- function(pops){
   #print(chart, "bar.png")
 }
 
-childs_parents_nativity <- function(){
+childs_parents_nativity <- function(sub_pop_3){
   #### Gathering data ####
-  population <- fread("data/josh2.csv")
+  #population <- fread("data/josh2.csv")
   #eng_speaking_countries <- fread("data/eng_speaking.csv")
   
   # Children's ability to speak english
-  sub_pop_3 <- select(population, ENG, NOP, NATIVITY, AGEP)
-  sub_pop_3 <- subset(sub_pop_3, NATIVITY == 1 & AGEP <= 18)
-  sub_pop_3 <- select(sub_pop_3, ENG, NOP)
+  #sub_pop_3 <- select(population, ENG, NOP, NATIVITY, AGEP)
+  #sub_pop_3 <- subset(sub_pop_3, NATIVITY == 1 & AGEP <= 18)
+  #sub_pop_3 <- select(sub_pop_3, ENG, NOP)
   
   childframe <- data.frame(id = as.numeric(sub_pop_3$ENG), parent = as.numeric(sub_pop_3$NOP), childsize = c(rep(1,length(sub_pop_3$ENG))), fac = as.numeric(sub_pop_3$ENG))
   childframe <- na.omit(childframe)

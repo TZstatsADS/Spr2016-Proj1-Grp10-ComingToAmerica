@@ -66,8 +66,7 @@ Sex_Decades <- function(population){
   nonnative$DECADE <- factor(nonnative$DECADE)
   levels(nonnative$DECADE) <- c("~1950's", "1950's", "1960's", "1970's", "1980's", 
                                 "1990's", "2000's~")
-  cotdec <- tally(group_by(nonnative,DECADE), sort = FALSE)
-  
+
   # Sex ratio by decades
   nonnative.sum = nonnative %>%
     
@@ -90,6 +89,9 @@ Sex_Decades <- function(population){
 
 Age_Decades <- function(population){
   nonnative <- population
+  nonnative$DECADE <- factor(nonnative$DECADE)
+  levels(nonnative$DECADE) <- c("~1950's", "1950's", "1960's", "1970's", "1980's", 
+                                "1990's", "2000's~")
   ##4 Age group at immigrant decade
   nonnative$AGEE <- nonnative$AGEP - (2013-nonnative$YOEP) # age at entry
   nonnative$AGEG <- rep(0, nrow(nonnative)) # what does rep mean?

@@ -20,6 +20,7 @@ First things first: we set up our environment to include all the packages and li
 library(data.table)
 library(dplyr)
 library(googleVis)
+op <- options(gvis.plot.tag='chart')
 library(survey)
 library(ggplot2)
 library(plyr)
@@ -30,7 +31,8 @@ library(plotrix)
 library(RColorBrewer)
 ```
 
-```{r}
+```{r,results='asis',tidy=FALSE}
+
 source("lib/jmd2228_functions.R")
 population <- prepare_data()
 had_child_t_test(population)

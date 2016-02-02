@@ -50,7 +50,7 @@ library(SnowballC)
 library(wordcloud)
 
 notnative.noteng$LANP <- as.factor(notnative.noteng$LANP)
-levels(notnative.noteng$LANP)
+View(levels(notnative.noteng$LANP))
 levels(notnative.noteng$LANP) <- c("Jamaican Creole","Krio","German","Yiddish","Dutch","Afrikaans","Swedish","Danish","Norwegian","Italian","French","Patois","French Creole","Spanish","Portuguese","Romanian","Irish Gaelic","Greek","Albanian","Russian","Ukrainian","Czech","Polish","Slovak","Bulgarian","Macedonian","Serbo-Croatian","Croatian","Serbian","Lithuanian","Latvian","Armenian","Persian","Pashto","Kurdish","India N.E.C.","Hindi","Bengali","Panjabi","Marathi","Gujarati","Urdu","Nepali","Sindhi","Pakistan N.E.C.","Sinhalese","Finnish","Hungarian","Uighur","Turkish","Mongolian","Telugu","Kannada","Malayalam","Tamil","Chinese","Cantonese","Mandarin","Formosan","Burmese","Thai","Mien","Hmong","Japanese","Korean","Laotian","Mon-Khmer, Cambodian","Vietnamese","Indonesian","Malay","Tagalog","Bisayan","Sebuano","Ilocano","Micronesian","Chamorro","Trukese","Samoan","Tongan","Hawaiian","Arabic","Hebrew","Syriac","Amharic","Cushite","Swahili","Bantu","Mande","Fulani","Kru, Ibo, Yoruba","African","Other Algonquian languages","Ojibwa","Dakota","Keres","Cherokee","Zuni","Other Indo-European languages","Other Asian languages","Other Pacific Island languages","Other specified African languages","Aleut-Eskimo languages","South/Central American Indian languages","Other Specified North American Indian languages","Other languages")
 LanguageCorpus <- paste(unlist(notnative.noteng$LANP), collapse =" ")
 wordcloud(LanguageCorpus, scale=c(6,.5), max.words = 1000, random.order = FALSE, random.color = TRUE, colors = "red", ordered.colors = TRUE)

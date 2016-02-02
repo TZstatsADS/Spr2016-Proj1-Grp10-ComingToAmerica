@@ -28,7 +28,7 @@ Lastly, we wanted to understand the respondents of the American Community Survey
 First things first: we set up our environment to include all the packages and libraries we need for our analysis.
 
 
-```{r}
+```{r, message=FALSE, warning=FALSE}
 library(data.table)
 library(dplyr)
 library(googleVis)
@@ -50,7 +50,7 @@ Next, we wanted to get a sense of where immigrants from non-English speaking cou
 
 Using the list available on Wikipedia's page entitled <i>"List of territorial entities where English is an official language"</i> we determined which countries do not have English as their primary and official language. By doing this, we could ensure that the non-Native respondents in our sample were not expected to know English prior to immigrating to the United States. 
 
-```{r}
+```{r, message=FALSE, warning=FALSE, results='hide'}
 source("lib/sri2116_functions.R")
 population <- prepare_data()
 states(population)
@@ -63,7 +63,7 @@ The graph below shows us the current U.S. states in which the non-native respond
 
 <p><img src="figs/states1.png" alt="plot of chunk unnamed-chunk-1"> </p>
 
-```{r}
+```{r, message=FALSE, warning=FALSE, results='hide'}
 popular_languages(population)
 
 ```
@@ -73,7 +73,7 @@ popular_languages(population)
 The wordcloud below visualizes the primary language spoken at home (excluding English) by our population of interest: non-native American Community Survey respondents who are originally from non-English speaking countries.
 
 <p><img src="figs/wordcloud.png" alt="plot of chunk unnamed-chunk-1"> </p>
-```{r}
+```{r, message=FALSE, warning=FALSE, results='hide'}
 common_languages(population)
 ```
 
@@ -82,7 +82,7 @@ common_languages(population)
 Above we determined the top languages spoken at home, and the barplot below shows how people who speak these top languages at home vary in their ability to speak to English.
 
 <p><img src="figs/common_lang.png" alt="plot of chunk unnamed-chunk-1"> </p>
-```{r}
+```{r, message=FALSE, warning=FALSE, results='hide'}
 common_states(population)
 ```
 
@@ -92,14 +92,18 @@ Above we determined the most populous immigrant states, and the barplot below sh
 
 <p><img src="figs/common_states.png" alt="plot of chunk unnamed-chunk-1"> </p>
 ```{r}
-
 ```
 
+Now that we understand the languages spoken by our immigrant population, we wanted to explore variables that could have an affect on one's ability to speak English.
+
+One such variable was <i>FER</i>, a binary flag that indicated whether or not a person had a children in the last twelve months. We used the variable <i>MIG</i> to narrow our population to only respondents who had moved to the United States in the past year. This would give us a look at how having, and raising, a child in the United States would affect one's English speaking ability. 
+
+
+```{r, message=FALSE, warning=FALSE, results='hide'}
+source("lib/jmd2228_functions.R")
+population <- prepare_data()
+```
 ```{r}
-
+had_child_t_test(population)
 ```
-
-```{r}
-
-```
-
+We ran a t-test comparing the reported Englishs speaking ability of individuals who have had children vs who have not had children, and found that at the 5% significance level, those who did not have children were statistically signficantly <i>better</i> at speaking English than their parental counterparts.

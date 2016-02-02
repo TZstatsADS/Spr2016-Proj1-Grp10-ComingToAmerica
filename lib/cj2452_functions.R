@@ -1,4 +1,4 @@
-setwd("/Volumes/HDD Data/Chenlu's files/Courses/Columbia/W4249/project1")
+
 # run the above line first before calling a function inside this file
 
 prepare_data <- function(){

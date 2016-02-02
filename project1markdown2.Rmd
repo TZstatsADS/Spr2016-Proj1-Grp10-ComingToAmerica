@@ -57,7 +57,7 @@ common_states(population)
 ```{r}
 source("lib/jmd2228_functions.R")
 population2 <- prepare_data()
-had_child_t_test()
+had_child_t_test(population2)
 ```
 
 ```{r, results='asis',tidy=FALSE}

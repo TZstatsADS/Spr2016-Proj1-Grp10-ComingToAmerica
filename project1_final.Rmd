@@ -224,3 +224,34 @@ Continuing our investigation, we wondered if the <i>nativity</i> of a child's pa
 ```
 
 As we see in the tree plot above, regardless of nativity, these children self-reported an overwhelming ability to speak English "Very Well", which is not too unsurprising, given that they are most likely in the American school system.
+
+
+## Wage and Ancestry
+We all know that people are generally heavilly influenced by their older generations,interms of personality,education,and the way their live. Currently, I am looking at how the ancestry from different countries effect their younger generation's wage. First, let's look at the wage with out considering then ancestry country:   
+
+---
+```{r,message=FALSE, warning=FALSE}
+
+source("lib//zw2327_functions.R")
+pus=prepare_data()
+NoneXtrem_Wage_his=wage_plot()
+
+```
+
+## Wage Distribution-Huge Skewness
+First box-plot if for th
+
+---
+
+```{r}
+country_name=fread("data//ANC1P_NAME_MAP.csv")
+WAGP_ByCountryName=prepare_data_boxplot()
+Hi_Low_ALL_Data=prepare_data_boxplot_HiLow()
+```
+
+
+
+
+```{r}
+box_plot()
+```

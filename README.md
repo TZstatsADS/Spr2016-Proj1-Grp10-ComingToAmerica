@@ -15,7 +15,3 @@ proj/
 ```
 
 Please see each subfolder for a README file.
-
-testing
-
-Test: 1

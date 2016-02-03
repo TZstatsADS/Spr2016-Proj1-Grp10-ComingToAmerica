@@ -10,6 +10,8 @@
 - Yuan Zhao (yz2885)
 
 [**Project File**](Team10_Presentation.Rmd)
+Please download as HTML file and open to view interactive plots! (or run with knitr in R!)
+
 ############################################
 
 

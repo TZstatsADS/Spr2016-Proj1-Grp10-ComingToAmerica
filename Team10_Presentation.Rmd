@@ -113,12 +113,6 @@ Above we determined the top languages spoken at home, and the barplot below show
 
 <i><h2 style="color:rgba(51, 51, 51, 0.73);">Immigrants' English Ability</h2></i>
 
-```{r, message=FALSE, warning=FALSE, results='hide'}
-common_states(population)
-```
-
-<i><h2 style="color:rgba(51, 51, 51, 0.73);">English Ability</h2></i>
-
 Now that we know what languages immigrants speak in their home, lets take a general look at how they report their English speaking ability. Over 65% of people think their English is "very well"" or "well". However, approximately 10.5% of the immigrants can't speak English at all!
 
 ```{r, message=FALSE, warning=FALSE, results='hide'}
@@ -131,6 +125,10 @@ source("lib/sri2116_functions_final.R")
 <i><h2 style="color:rgba(51, 51, 51, 0.73);">Most Common US States by English Ability</h2></i>
 
 Previously we determined the most populous immigrant states, and we assessed their general speaking abilities. Below, this barplot shows how people who reside in these states vary in their ability to speak to English.
+
+```{r, message=FALSE, warning=FALSE, results='hide'}
+common_states(population)
+```
 
 <p><center><img src="figs/common_states.png" alt="plot of chunk unnamed-chunk-1"></center></p>
 

@@ -40,6 +40,7 @@ library(RColorBrewer)
 library(wordcloud)
 library(tm)
 library(SnowballC)
+library(gridExtra)
 ```
 
 Beginning our investigation, we wanted to know who exactly was immigrating to the United States from Non - English speaking countries? We began with a few statistics about this vital population:
@@ -232,7 +233,7 @@ We all know that people are generally heavilly influenced by their older generat
 ---
 ```{r,message=FALSE, warning=FALSE}
 
-source("lib//zw2327_functions.R")
+source("lib/zw2327_functions.R")
 pus=prepare_data()
 NoneXtrem_Wage_his=wage_plot()
 
@@ -244,7 +245,7 @@ First box-plot if for th
 ---
 
 ```{r}
-country_name=fread("data//ANC1P_NAME_MAP.csv")
+country_name=fread("data/ANC1P_NAME_MAP.csv")
 WAGP_ByCountryName=prepare_data_boxplot()
 Hi_Low_ALL_Data=prepare_data_boxplot_HiLow()
 ```

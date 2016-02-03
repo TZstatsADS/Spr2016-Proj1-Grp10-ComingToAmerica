@@ -1,4 +1,4 @@
-setwd("/Volumes/HDD Data/Chenlu's files/Courses/Columbia/W4249/project1")
+#setwd("/Volumes/HDD Data/Chenlu's files/Courses/Columbia/W4249/project1")
 # run the above line first before calling a function inside this file
 
 prepare_data <- function(){
@@ -22,10 +22,11 @@ Eng_Pie <- function(population){
  text <- c("Very well: ", "Well: ", "Not well: ", "Not at all: ")
  perlabels <- paste(text, percentage, "%", sep="")
  par(mfrow=c(1,1)) 
+ png(filename = "figs/Eng.png")
  pie3D(slices, radius = 1.2, shade = 0.8, theta = 0.8, start = -0.1, border = "white",
        col = cols, main = "Pie Chart of Ability to Speak English", 
        labels = perlabels, labelrad = 1.3, labelcex = 1.2)
- dev.copy(png, "figs/Eng.png")
+ #dev.copy(png, "figs/Eng.png")
  dev.off()
  }
 
@@ -44,6 +45,7 @@ Time_Series <- function(population){
   cotyoeB <- count(nonnativelist[[3]], YOEP, wt = PWGTP, sort = FALSE)
   yearB <- cotyoeB$YOEP
   cotyoeB2 <- cotyoeB$n
+  png("figs/Number_Year.png")
   plot(yearA, cotyoeA2, type = "o", col = "darksalmon", main = "Number of Immigrants in Each Year", 
        xlab = "Year", ylab = "Number of Immigrants", xaxt="n")
   points(yearA, cotyoeA2, type = "o", pch = 19, col = "darksalmon")
@@ -51,7 +53,7 @@ Time_Series <- function(population){
   axis(1, at = c(1920, 1940, 1960, 1980, 2000, 2013))
   legend("topleft", c("English Ability: Well", "English Ability: Not Well"), 
          fill = c("darksalmon", "lightseagreen"))
-  dev.copy(png, "figs/Number_Year.png")
+  #dev.copy(png, "figs/Number_Year.png")
   dev.off()
 }
 
@@ -75,12 +77,13 @@ Sex_Decades <- function(population){
   cotsex <- mutate(cotsex, pos = cumsum(n) - 0.5 * n)
   
   # Print out the image
+  png("figs/SEX_Decade.png")
   print(ggplot(cotsex, aes(x = DECADE, y = n)) + 
           geom_bar(aes(fill = SEX), stat = "identity") + scale_fill_brewer(palette = "Set2") +
           geom_text(aes(y = pos, label = Percent)) +
           ggtitle("Sex Ratio by Decade") + labs(x = "Decade", y = "Count") +
           theme(panel.background = element_rect(fill = "lightsteelblue1")))
-  dev.copy(png, "figs/SEX_Decade.png")
+  #dev.copy(png, "figs/SEX_Decade.png")
   dev.off()
 }
 
@@ -101,9 +104,10 @@ Age_Decades <- function(population){
   nonnative$AGEG <- ifelse(nonnative$AGEE >= 60, 6, nonnative$AGEG)
   nonnative$AGEG <- factor(nonnative$AGEG)
   levels(nonnative$AGEG) <- c("0's", "10's", "20's", "30's", "40's", "50's", "60's~")
+  png("figs/Age_entry.png")
   print(ggplot(nonnative, aes(x=DECADE)) + 
           geom_bar(aes(fill=AGEG, weight = PWGTP), position="fill") +
           ggtitle("Age Group at Immigrant Decade") + labs(x = "Decade", y = "Fraction"))
-  dev.copy(png, "figs/Age_at_entry.png")
+  #dev.copy(png, "figs/Age_entry.png")
   dev.off()
 }

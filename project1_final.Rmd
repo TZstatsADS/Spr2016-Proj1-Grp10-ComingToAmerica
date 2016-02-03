@@ -230,6 +230,11 @@ As we see in the tree plot above, regardless of nativity, these children self-re
 ## Wage and Ancestry
 We all know that people are generally heavilly influenced by their older generations,interms of personality,education,and the way their live. Currently, I am looking at how the ancestry from different countries effect their younger generation's wage. First, let's look at the wage with out considering then ancestry country:   
 
+## Wage Distribution:Huge Skewness
+The mean of the wage is 25,650 and median is 6000 .First box-plot shows a very extreme skewness. There are lots of entries have zero salary. Those information tells us most people live under the stander line of this country.
+
+Then for the second graph, I tried to get rid of extreme values, deleting the salaries which are too low and too high(<=0,>=100,000). Althought the graph looks much better, but the skewness is still very significant. That may mean, even for the middle class, life is not that easy. 
+
 ---
 ```{r,message=FALSE, warning=FALSE}
 
@@ -238,9 +243,9 @@ pus=prepare_data()
 NoneXtrem_Wage_his=wage_plot()
 
 ```
+## Highest - Lowest Five Salary Ancestery Country
 
-## Wage Distribution-Huge Skewness
-First box-plot if for th
+The below table shows the highest and lowest average wage by ancetry countries. The highest ranked countres are eastern euro and indian asian. That really make sense , as imigrants from such countries usually have very good math and computer skills, they likely work in tech firms and have high salary. Their children can also inherit or be educated with those talents, and finally have higher income. This also tells as how good math skills can benifit your next generationi.
 
 ---
 
@@ -250,7 +255,8 @@ WAGP_ByCountryName=prepare_data_boxplot()
 Hi_Low_ALL_Data=prepare_data_boxplot_HiLow()
 ```
 
-
+## Deatailed Distribution of Each Country
+This part plot box-plot for five highest and lowest ancestry countries from previous part. The skewness is observed in each sub group. That tells us the huge skewness for the wage is not caused or pulled by a single ancestry country,but almost every country has such unbalanced salary distribution.
 
 
 ```{r}

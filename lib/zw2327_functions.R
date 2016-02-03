@@ -1,6 +1,6 @@
 prepare_data<- function(){
 columns=c("ANC1P","WAGP","CountryName") 
-pus=fread("data//zw2327.csv",select=columns)
+pus=fread("data/zw2327.csv",select=columns)
 return(pus)
 }
 

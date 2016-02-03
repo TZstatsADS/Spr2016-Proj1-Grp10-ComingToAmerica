@@ -10,7 +10,7 @@ Eng_Pie <- function(population){
  nonnative0 <- population
  
  # Count number of different English levels
- cot <- tally(group_by(nonnative0, ENG, wt = PWGTP), sort = FALSE)
+ cot <- count(nonnative0, ENG,  wt = PWGTP, sort = FALSE)
  cot2 <- cot$n
  
  #plot pie chart
@@ -38,10 +38,10 @@ Time_Series <- function(population){
   nonnativelist[[3]] <- filter(nonnative0, ENG %in% c(3, 4)) # English: Not Well
   
   ##2 Count vs. year of entry
-  cotyoeA <- tally(group_by(nonnativelist[[2]],YOEP), sort = FALSE)
+  cotyoeA <- count(nonnativelist[[2]], YOEP, wt = PWGTP, sort = FALSE)
   yearA <- cotyoeA$YOEP
   cotyoeA2 <- cotyoeA$n
-  cotyoeB <- tally(group_by(nonnativelist[[3]],YOEP), sort = FALSE)
+  cotyoeB <- count(nonnativelist[[3]], YOEP, wt = PWGTP, sort = FALSE)
   yearB <- cotyoeB$YOEP
   cotyoeB2 <- cotyoeB$n
   plot(yearA, cotyoeA2, type = "o", col = "darksalmon", main = "Number of Immigrants in Each Year", 
@@ -67,18 +67,15 @@ Sex_Decades <- function(population){
   levels(nonnative$DECADE) <- c("~1950's", "1950's", "1960's", "1970's", "1980's", 
                                 "1990's", "2000's~")
 
-  # Sex ratio by decades
-  nonnative.sum = nonnative %>%
-    
-    # Get the counts
-    group_by(DECADE, SEX) %>%
-    summarise(count = n()) %>%
-    
-    # Get labels and position of labels
-    group_by(DECADE) %>%
-    mutate(Percent = paste0(sprintf("%.1f", count / sum(count) * 100), "%")) %>%
-    mutate(pos = cumsum(count) - 0.5 * count)
-  print(ggplot(nonnative.sum, aes(x = DECADE, y = count)) + 
+  # Get the counts for ordered DEXADE and SEX
+  cotsex <- tally(group_by(nonnative, DECADE, SEX), wt = PWGTP)
+  
+  # Get labels and position of labels
+  cotsex <- mutate(cotsex, Percent = paste0(sprintf("%.1f", n/sum(n) * 100), "%")) 
+  cotsex <- mutate(cotsex, pos = cumsum(n) - 0.5 * n)
+  
+  # Print out the image
+  print(ggplot(cotsex, aes(x = DECADE, y = n)) + 
           geom_bar(aes(fill = SEX), stat = "identity") + scale_fill_brewer(palette = "Set2") +
           geom_text(aes(y = pos, label = Percent)) +
           ggtitle("Sex Ratio by Decade") + labs(x = "Decade", y = "Count") +
@@ -105,7 +102,7 @@ Age_Decades <- function(population){
   nonnative$AGEG <- factor(nonnative$AGEG)
   levels(nonnative$AGEG) <- c("0's", "10's", "20's", "30's", "40's", "50's", "60's~")
   print(ggplot(nonnative, aes(x=DECADE)) + 
-          geom_bar(aes(fill=AGEG), position="fill") +
+          geom_bar(aes(fill=AGEG, weight = PWGTP), position="fill") +
           ggtitle("Age Group at Immigrant Decade") + labs(x = "Decade", y = "Fraction"))
   dev.copy(png, "figs/Age_at_entry.png")
   dev.off()

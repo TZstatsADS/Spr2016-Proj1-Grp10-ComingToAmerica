@@ -1,4 +1,4 @@
-#setwd("/Volumes/HDD Data/Chenlu's files/Courses/Columbia/W4249/project1")
+#setwd("/Volumes/HDD Data/Chenlu files/Courses/Columbia/W4249/project1")
 # run the above line first before calling a function inside this file
 
 prepare_data <- function(){
@@ -6,6 +6,12 @@ prepare_data <- function(){
   return(population)
 }
 
+# total population
+total <- function(population){
+  tally(population, wt = PWGTP)
+}
+
+# English speaking ability
 Eng_Pie <- function(population){
  nonnative0 <- population
  

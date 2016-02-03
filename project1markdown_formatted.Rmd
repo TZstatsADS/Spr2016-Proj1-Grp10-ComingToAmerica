@@ -53,6 +53,8 @@ source("lib/cj2452_functions.R")
 population_abov <- prepare_data()
 Time_Series(population_abov)
 ```
+<p><center><img src="figs/Number_Year.png" alt="plot of chunk unnamed-chunk-1"></center></p>
+
 
 <i><h2 style="color:rgba(51, 51, 51, 0.73);">Sex Ratio by Decade</h2></i>
 
@@ -61,6 +63,7 @@ We were also interested in the gender ratio of the immigrants. We separated the 
 ```{r, message=FALSE, warning=FALSE, results='hide'}
 Sex_Decades(population_abov)
 ```
+<p><center><img src="figs/SEX_Decade.png" alt="plot of chunk unnamed-chunk-1"></center></p>
 
 <i><h2 style="color:rgba(51, 51, 51, 0.73);">Age Group by Decade</h2></i>
 
@@ -69,6 +72,7 @@ Finally, we explored the ages of the men and women and children immigrating to t
 ```{r, message=FALSE, warning=FALSE, results='hide'}
 Age_Decades(population_abov)
 ```
+<p><center><img src="figs/Age_entry.png" alt="plot of chunk unnamed-chunk-1"></center></p>
 
 <i><h2 style="color:rgba(51, 51, 51, 0.73);">US States</h2></i>
 
@@ -77,7 +81,7 @@ Now that we have an idea of who our respondents are, we began the focus of our a
 Using the list available on Wikipedia's page entitled <i>"List of territorial entities where English is an official language"</i> we determined which countries do not have English as their primary and official language. By doing this, we could ensure that the non-Native respondents in our sample were not expected to know English prior to immigrating to the United States. 
 
 ```{r, message=FALSE, warning=FALSE, results='hide'}
-source("lib/sri2116_functions.R")
+source("lib/sri2116_functions_final.R")
 population <- prepare_data()
 states(population)
 
@@ -85,7 +89,7 @@ states(population)
 
 The graph below shows us the current U.S. states in which the non-native respondents who completed the American Community Survey (and did not come from an English-speaking country) currently reside.
 
-<p><img src="figs/states1.png" alt="plot of chunk unnamed-chunk-1"> </p>
+<p><center><img src="figs/states1.png" alt="plot of chunk unnamed-chunk-1"></center></p>
 
 <i><h2 style="color:rgba(51, 51, 51, 0.73);">Primary Language Spoken at Home</h2></i>
 
@@ -95,7 +99,7 @@ popular_languages(population)
 
 The wordcloud below visualizes the primary language spoken at home (excluding English) by our population of interest: non-native American Community Survey respondents who are originally from non-English speaking countries.
 
-<p><img src="figs/wordcloud.png" alt="plot of chunk unnamed-chunk-1"> </p>
+<p><center><img src="figs/wordcloud.png" alt="plot of chunk unnamed-chunk-1"></center></p>
 
 <i><h2 style="color:rgba(51, 51, 51, 0.73);">Most Common Languages Spoken at Home</h2></i>
 
@@ -105,7 +109,7 @@ common_languages(population)
 
 Above we determined the top languages spoken at home, and the barplot below shows how people who speak these top languages at home vary in their ability to speak to English.
 
-<p><img src="figs/common_lang.png" alt="plot of chunk unnamed-chunk-1"> </p>
+<p><center><img src="figs/common_languages.png" alt="plot of chunk unnamed-chunk-1"></center></p>
 
 <i><h2 style="color:rgba(51, 51, 51, 0.73);">Immigrants' English Ability</h2></i>
 
@@ -120,15 +124,15 @@ Now that we know what languages immigrants speak in their home, lets take a gene
 ```{r, message=FALSE, warning=FALSE, results='hide'}
 source("lib/cj2452_functions.R")
 Eng_Pie(population_abov)
-source("lib/sri2116_functions.R")
+source("lib/sri2116_functions_final.R")
 ```
-
+<p><center><img src="figs/Eng.png" alt="plot of chunk unnamed-chunk-1"></center></p>
 
 <i><h2 style="color:rgba(51, 51, 51, 0.73);">Most Common US States by English Ability</h2></i>
 
 Previously we determined the most populous immigrant states, and we assessed their general speaking abilities. Below, this barplot shows how people who reside in these states vary in their ability to speak to English.
 
-<p><img src="figs/common_states.png" alt="plot of chunk unnamed-chunk-1"> </p>
+<p><center><img src="figs/common_states.png" alt="plot of chunk unnamed-chunk-1"></center></p>
 
 <i><h1 style="color:rgba(51, 51, 51, 0.73);">Explanatory Variables</h1></i>
 

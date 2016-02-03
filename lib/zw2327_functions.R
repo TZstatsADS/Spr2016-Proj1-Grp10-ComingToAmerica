@@ -53,7 +53,7 @@ return(WAGP_ByCountryName_new1);
 }
 
 
-map_plot<-funtion()
+map_plot<-function()
 {
 ggplot(WM_df, aes(long,lat, group=group)) + 
     geom_polygon() + 

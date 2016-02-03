@@ -22,7 +22,7 @@ Eng_Pie <- function(population){
  text <- c("Very well: ", "Well: ", "Not well: ", "Not at all: ")
  perlabels <- paste(text, percentage, "%", sep="")
  par(mfrow=c(1,1)) 
- png(filename = "figs/Eng.png")
+ png(filename = "figs/Eng.png", width = 680, height = 480)
  pie3D(slices, radius = 1.2, shade = 0.8, theta = 0.8, start = -0.1, border = "white",
        col = cols, main = "Pie Chart of Ability to Speak English", 
        labels = perlabels, labelrad = 1.3, labelcex = 1.2)

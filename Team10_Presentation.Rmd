@@ -151,7 +151,7 @@ population2 <- prepare_data2()
 ```{r}
 had_child_t_test(population)
 ```
-We ran a t-test comparing the reported Englishs speaking ability of individuals who have had children vs who have not had children, and found that at the 5% significance level, those who did not have children were statistically significantly <i>better</i> at speaking English than their parental counterparts.
+We ran a t-test comparing the reported English speaking ability of individuals who have had children vs who have not had children, and found that at the 5% significance level, those who did not have children were statistically significantly <i>better</i> at speaking English than their parental counterparts.
 
 In addition, this variable can be viewed graphically below, with an interactive bar chart. We see these results are consistent with our t-test, as a greater percentage of the population with no children reports better English.
 

@@ -76,7 +76,7 @@ plot2<-ggplot(notnative.noteng.topLANP, aes(rENG, group=top.LANP)) +
   geom_bar(aes(colour=top.LANP, fill=top.LANP), alpha=0.9) +
   xlab("Ability to Speak English") + ylab("Number of Respondents") + 
   ggtitle("English-Speaking Ability by Most Common Languages Spoken At Home") +
-  scale_fill_brewer(palette = "Paired") + scale_colour_brewer(palette = "Paired") + theme(panel.background = element_rect(fill = "lightblue"))
+  scale_fill_brewer(palette = "Paired") + scale_colour_brewer(palette = "Paired") + theme(panel.background = element_rect(fill = "lightyellow"))
 print(plot2)
 dev.off()
    

@@ -1,17 +1,23 @@
+############################################
 # Project: American Community Survey
 ### Script learning project on American Community Survey
+#### Group 10
+#### Team members: 
+- Josh Dillon (jmd2228), 
+- Schinria Islam (sri2116), 
+- Chenlu Ji (cj2452), 
+- Zhibo Wan (zw2327), 
+- Yuan Zhao (yz2885)
 
-Term: Spring 2016, First project
+[**Project File**](Team10_Presentation.Rmd)
+Please download as HTML file and open to view interactive plots! (or run with knitr in R!)
 
-Following [suggestions](http://nicercode.github.io/blog/2013-04-05-projects/) by [RICH FITZJOHN](http://nicercode.github.io/about/#Team) (@richfitz). This folder is orgarnized as follows.
+############################################
+
 
 ```
 proj/
 ├── lib/
 ├── data/
-├── doc/
 ├── figs/
-└── output/
 ```
-
-Please see each subfolder for a README file.

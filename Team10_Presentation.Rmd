@@ -10,7 +10,7 @@ output: html_document
 <i><h2 style="color:rgba(51, 51, 51, 0.73);">Overview</h2></i>
 For our project, we had four primary motivations. First, we wanted to further understand a group of people who are vital to the success and growth of the United States: immigrants. Approximately 13% of the United States population is composed of immigrants, or nearly 41 million residents, and it is no surprise that much of our country's innovation and economic engine is fueled by the diversity of our people and ideas that come from within our borders. We wanted to take a closer look at people who currently live in the United States but were not born here, so we focus on those residents who are non-native to the United States. 
 
-Second, we thought about the transition that many immigrants face when arriving to the US, including adapting to a new culture, climate, and set of values. One transition faced by immigrants that is captured in the American Community Survey is the transition of adopting English as a primary language. Thus, our analysis pays particular attention to the variable "ENG" which measures respondents' ability to speak English. 
+Second, we thought about the transition that many immigrants face when arriving to the US, including adapting to a new culture, climate, and set of values. One transition faced by immigrants that is captured in the American Community Survey is the transition of adopting English as a primary language. Thus, our analysis pays particular attention to the variable "ENG" which measures respondents' ability to speak English, and we restricted our analysis by these two features – non-native status and originating from a country that doesn’t have English as a primary and official language. After doing this, we used main weights (PWGTP) and found that this subpopulation of immigrants from non-English speaking countries comprises 3.7 million people, or about 1% of the U.S. population.
 
 Third, we wanted to shed light on immigration because it is a topic that has been a highlight of much recent political discourse. As we are in a presidential election year, there has been heated debate about policies that would affect many incoming future immigrants. With the topic of immigration on many people's minds, including ours, we wanted to highlight a subgroup of our country who are extremely important to understand at this time in our history.
 
@@ -46,7 +46,7 @@ Beginning our investigation, we wanted to know who exactly was immigrating to th
 
 <i><h2 style="color:rgba(51, 51, 51, 0.73);">Time Series of Immigration to the US</h2></i>
 
-We separate our population into two parts: those that speak English well (responding <i>ENG = 1</i> or <i>ENG = 2</i>) and those that do not speak English well (responding <i>ENG = 3</i> or <i>ENG = 4</i>). We then counted the number of immigrants who entered the US from 1920 until 2013. The two populations had similar trends in the years of immigration. After 1960 there was a steep rise in the number of immigrants coming to the US, with peaks around 1980 and 2000.
+We first did a time series, using main weights, to gauge how many immigrants came to US between 1920 and 2013. We separated our population into two parts: those that speak English well (responding <i>ENG = 1</i> or <i>ENG = 2</i>) and those that do not speak English well (responding <i>ENG = 3</i> or <i>ENG = 4</i>). The two populations had similar trends in the years of immigration. After 1960 there was a steep rise in the number of immigrants coming to the US, with peaks around 1980 and 2000, and we see that for each year of immigration, there are roughly about twice as many people today who know English well compared to those that don’t
 
 ```{r, message=FALSE, warning=FALSE, results='hide'}
 source("lib/cj2452_functions.R")
@@ -58,7 +58,8 @@ Time_Series(population_abov)
 
 <i><h2 style="color:rgba(51, 51, 51, 0.73);">Sex Ratio by Decade</h2></i>
 
-We were also interested in the gender ratio of the immigrants. We separated the immigration years into decades, and found that in every decade, females have been the majority of the immigrants, (except the 1980s, when it was evenly split). 
+We also looked at the gender ratios of immigrants, after first grouping years of entry into decades, and we found that in every decade, females have been the majority of immigrants, with the exception of the 1980s where it was evenly split.
+
 
 ```{r, message=FALSE, warning=FALSE, results='hide'}
 Sex_Decades(population_abov)
@@ -67,7 +68,7 @@ Sex_Decades(population_abov)
 
 <i><h2 style="color:rgba(51, 51, 51, 0.73);">Age Group by Decade</h2></i>
 
-Finally, we explored the ages of the men and women and children immigrating to the United States, using the <i>Age</i> and <i>Year of Entry</i> variables to make a stacked bar chart. About 75% of immigrants came to the US before the age of 30, however, this is biased as there are no immigrants beyond the age of 30 in the first bar (meaning that they immigrated in the 1950s). This is because many of the people who immigrated at a later age than their 30s in the 1950s have unfortunately passed away.
+Next, we explored the ages of the men and women and children immigrating to the United States, using the <i>Age</i> and <i>Year of Entry</i> variables to make a stacked bar chart. We can see that about 75% of immigrants came to the US before the age of 30; however, we noticed that there are no immigrants over the age of 30 who said they immigrated in the 1950s, which told us that this data is biased because those who immigrated at an older age in the earlier decades have likely passed away and thus couldn’t participate in the 2013 ACS.
 
 ```{r, message=FALSE, warning=FALSE, results='hide'}
 Age_Decades(population_abov)
@@ -97,7 +98,8 @@ The graph below shows us the current U.S. states in which the non-native respond
 popular_languages(population)
 ```
 
-The wordcloud below visualizes the primary language spoken at home (excluding English) by our population of interest: non-native American Community Survey respondents who are originally from non-English speaking countries.
+Then we looked at the variable LANP, a question in the survey that asked respondents what language they speak at home (excluding English). Since we know they came from a country that doesn’t primarily speak English, we wanted to get a sense of what languages are represented in our sample – this wordcloud shows us that Spanish, Chinese, Tagalog, and Vietnamese are popular immigrant languages, but we look at this data a bit differently below.
+
 
 <p><center><img src="figs/wordcloud.png" alt="plot of chunk unnamed-chunk-1"></center></p>
 
@@ -107,13 +109,13 @@ The wordcloud below visualizes the primary language spoken at home (excluding En
 common_languages(population)
 ```
 
-Above we determined the top languages spoken at home, and the barplot below shows how people who speak these top languages at home vary in their ability to speak to English.
+We took the top eight spoken-at-home languages and made this bar plot to visualize how immigrants who speak those languages at home feel about their current ability to speak English, though these are only representative of our sample, not the entire US population. 
 
 <p><center><img src="figs/common_languages.png" alt="plot of chunk unnamed-chunk-1"></center></p>
 
 <i><h2 style="color:rgba(51, 51, 51, 0.73);">Immigrants' English Ability</h2></i>
 
-Now that we know what languages immigrants speak in their home, lets take a general look at how they report their English speaking ability. Over 65% of people think their English is "very well"" or "well". However, approximately 10.5% of the immigrants can't speak English at all!
+Now that we know what languages immigrants speak in their home, let's take a general look at how they report their English speaking ability. Over 65% of people in our subpopulation (immigrants from non-English speaking countries) rated their English-speaking abilities as "very well" or "well"--while approximately 11.5% of the immigrants can't speak English at all.
 
 ```{r, message=FALSE, warning=FALSE, results='hide'}
 source("lib/cj2452_functions.R")
@@ -124,7 +126,7 @@ source("lib/sri2116_functions_final.R")
 
 <i><h2 style="color:rgba(51, 51, 51, 0.73);">Most Common US States by English Ability</h2></i>
 
-Previously we determined the most populous immigrant states, and we assessed their general speaking abilities. Below, this barplot shows how people who reside in these states vary in their ability to speak to English.
+In revisiting our state sample data, we look at the eight most popular immigrant states by English-Speaking ability. We see a similar trend across along popular states, that there are increasingly greater numbers of people in our sample who speak English well or very well, but we see a small deviation, for immigrants in our sample who live in Texas, where the number of people who speak English “well” is just about the same as the number of people who describe their English-speaking ability as “not well.”
 
 ```{r, message=FALSE, warning=FALSE, results='hide'}
 common_states(population)
@@ -149,7 +151,7 @@ population2 <- prepare_data2()
 ```{r}
 had_child_t_test(population)
 ```
-We ran a t-test comparing the reported Englishs speaking ability of individuals who have had children vs who have not had children, and found that at the 5% significance level, those who did not have children were statistically signficantly <i>better</i> at speaking English than their parental counterparts.
+We ran a t-test comparing the reported English speaking ability of individuals who have had children vs who have not had children, and found that at the 5% significance level, those who did not have children were statistically significantly <i>better</i> at speaking English than their parental counterparts.
 
 In addition, this variable can be viewed graphically below, with an interactive bar chart. We see these results are consistent with our t-test, as a greater percentage of the population with no children reports better English.
 

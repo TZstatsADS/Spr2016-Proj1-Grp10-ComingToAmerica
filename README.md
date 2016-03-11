@@ -1,18 +1,20 @@
 ############################################
-<i><h2 style="color:rgba(51, 51, 51, 0.73);">Project of group 10</h2></i>
-<center> <h2>Coming to America:</h2> 
-<h3 style="margin-bottom: 25px;">Taking A Closer Look at Non-English-Speaking Immigrants in the American Community Survey 2013</h3> </center>
-<center><h4 style="font-weight:normal">Joshua Michael Dillon (jmd2228)</h3></center>
-<center><h4 style="font-weight:normal">Schinria Islam (sri2116)</h3></center>
-<center><h4 style="font-weight:normal">Chenlu Ji (cj2452)</h3></center>
-<center><h4 style="font-weight:normal">Zhibo Wan (zw2327)</h3></center>
-<center><h4 style="font-weight:normal">Yuan Zhao (yz2885)</h3></center>
+####Project of group 10
+##Coming to America:
+###Taking A Closer Look at Non-English-Speaking Immigrants in the American Community Survey 2013
+############################################
+####group members:
+Joshua Michael Dillon (jmd2228)  
+Schinria Islam (sri2116)  
+Chenlu Ji (cj2452)  
+Zhibo Wan (zw2327)  
+Yuan Zhao (yz2885)  
 
-<center><h4 style="font-weight:normal; margin-bottom: 40px;">February 3, 2016</h4></center>
+February 3, 2016
 
 <p><center><img src="figs/common_languages.png" alt="plot of chunk unnamed-chunk-1"></center></p>
 
-<i><h2 style="color:rgba(51, 51, 51, 0.73);">Overview</h2></i>
+###Overview
 For our project, we had four primary motivations. First, we wanted to further understand a group of people who are vital to the success and growth of the United States: immigrants. Approximately 13% of the United States population is composed of immigrants, or nearly 41 million residents, and it is no surprise that much of our country's innovation and economic engine is fueled by the diversity of our people and ideas that come from within our borders. We wanted to take a closer look at people who currently live in the United States but were not born here, so we focus on those residents who are non-native to the United States. 
 
 Second, we thought about the transition that many immigrants face when arriving to the US, including adapting to a new culture, climate, and set of values. One transition faced by immigrants that is captured in the American Community Survey is the transition of adopting English as a primary language. Thus, our analysis pays particular attention to the variable "ENG" which measures respondents' ability to speak English, and we restricted our analysis by these two features – non-native status and originating from a country that doesn’t have English as a primary and official language. After doing this, we used main weights (PWGTP) and found that this subpopulation of immigrants from non-English speaking countries comprises 3.7 million people, or about 1% of the U.S. population.

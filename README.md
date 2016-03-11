@@ -28,11 +28,3 @@ An [**Ealier Version**](old_version.Rmd) containing more figures is also retaine
 To see the interactive part, please download and knirt the Rmd files or download the html files under the folder "output". 
 
 ############################################
-
-
-```
-proj/
-├── lib/
-├── data/
-├── figs/
-```

@@ -23,8 +23,8 @@ Third, we wanted to shed light on immigration because it is a topic that has bee
 
 Lastly, we wanted to understand the respondents of the American Community Survey in particular. We realized that the individuals who complete these surveys each year make a huge impact on decisions made by local planners, policy makers, and community organizations. American Community Survey data is used by Federal Agencies,  state and local agencies, NGOs, emergency planners, businesses, educators, journalists, and the public, among other groups, and we wanted to gain a greater understanding of the respondents who completed the American Community Survey in 2013 and helped inform decisions over the last few years and gain insight into trends that may exist more broadly across the country.
 
-Please veview the [**Project File**](Team10_Presentation.Rmd) to see the whole report.
-An [**Ealier Version**](old_version.Rmd) containing more figures is also retained.
+Please review the [**Project File**](Team10_Presentation.Rmd) to see the whole report.
+An [**Earlier Version**](old_version.Rmd) containing more figures is also retained.
 To see the interactive part, please download and knirt the Rmd files or download the html files under the folder "output". 
 
 ############################################
